@@ -4,8 +4,13 @@
   "private": true,
   "scripts": {
     "server": "node server.js",
-    "start": "nodemon server.js",
+    "start": "node server.js",
+    "nodemon": "nodemon server.js",
      "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "nodemon": "^1.11.0"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
@@ -22,10 +27,6 @@
     "mysql": "^2.13.0",
     "passport": "^0.4.0",
     "serve-favicon": "~2.3.0"
-  },
-  "devDependencies": {
-    "concurrently": "^3.5.0",
-    "nodemon": "^1.11.0"
   }
 }
 
