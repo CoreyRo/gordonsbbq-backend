@@ -1,11 +1,15 @@
 {
-  "name": "cc-express",
+  "name": "gordonsbbq-backend",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon server.js"
+    "server": "node server.js",
+    "start": "concurrently \"nodemon server.js",
+    "build": "node scripts/build.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
@@ -21,19 +25,8 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
-    "babel-core": "^6.24.1",
-    "babel-loader": "^7.0.0",
-    "babel-preset-env": "^1.4.0",
-    "browser-sync": "^2.18.8",
-    "browser-sync-webpack-plugin": "^1.1.4",
-    "chai": "^3.5.0",
-    "css-loader": "^0.25.0",
-    "extract-text-webpack-plugin": "^2.1.0",
-    "mocha": "^3.4.1",
-    "postcss-loader": "^1.1.1",
-    "sass-loader": "^4.0.2",
-    "style-loader": "^0.13.1",
-    "webpack": "^2.2.0",
-    "webpack-dotenv-plugin": "^2.0.0"
+    "concurrently": "^3.5.0",
+    "nodemon": "^1.11.0"
   }
 }
+
