@@ -47,6 +47,3 @@ router.post('/runmongo', function(req,res,next){
 
 module.exports = router;
 
-
-
-// "mongodb://heroku_bv6lb71p:heroku_bv6lb71p@ds125058.mlab.com:25058/heroku_bv6lb71p"
