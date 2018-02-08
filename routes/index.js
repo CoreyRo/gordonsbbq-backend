@@ -11,7 +11,7 @@ const mongo = require("../mongo/mongoRoute.js");
 // // *** Setup api routes
 // // ==============================================================================
 router.use("/", html); //adds /api to apiRoutes
-router.use("/", mongo); //adds /api to apiRoutes
+router.use("/config", mongo); //adds /api to apiRoutes
 router.use("/api", api); //adds /api to apiRoutes
 router.use("/users", users); //adds /api to apiRoutes
 router.use("/auth", auth); //adds /api to apiRoutes

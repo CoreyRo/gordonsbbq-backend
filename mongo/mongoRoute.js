@@ -4,22 +4,41 @@ const fs = require('fs');
 const path = require('path')
 const mongoose = require('mongoose')
 const getMongoDB = require('./config')
-
+const expressValidator = require('express-validator');
+router.use(expressValidator());
 
 router.post('/runmongo', function(req,res,next){
-    let mongo_uri = req.body.uri
-    console.log("mongo URI", mongo_uri)
-
-    fs.writeFile(path.join(__dirname, "../tmp/mongo"), mongo_uri, function(err){
+    req.checkBody('uri', 'Mongo URI field cannot be empty.').notEmpty();
+    req.checkBody('username', 'Username field cannot be empty.').notEmpty();
+    req.checkBody('password', 'Password field cannot be empty.').notEmpty();
+    const errors = req.validationErrors()
+    let username = req.body.username.trim()
+    let password = req.body.password
+    let mongo_uri = req.body.uri.trim()
+    if(errors){
+        console.log(`run mongo POST errors: ${JSON.stringify(errors)}`)
+        return res.render('config', { 
+            title: 'Config Error(s)', 
+            errors: errors
+        })
+    }
+    res.ren
+    fs.writeFile(path.join(__dirname, "../tmp/mongo"), `${mongo_uri},${username},${password}`, function(err){
         if(err){
-            return console.log("WRITE ERROR", err)
+            console.log("FILESYSTEM WRITE ERROR", err)
+            return res.render('config', { 
+                title: 'Node fs error', 
+                errors: [{
+                    msg: `Node filesystem Error No. ${err.errno}, Error code: ${err.code}`
+                }] 
+            })
         }
         else{
-            console.log('FILE SAVED!')
-            
-            getMongoDB(function(data){
-                console.log("Read this data", data)
-                res.json(data)
+            console.log('FILESYSTEM WRITE SUCCESS!')
+            getMongoDB(res, function(data){
+                return res.redirect('/login')
+ 
+                
             })
         }
     })

@@ -12,6 +12,11 @@ router
     .route('/getall')
     .get(blog.findAll)
 
+router.get('/changetouri', function(req,res){
+    console.log('here')
+    res.render('login')
+})
+
     
 // passport.serializeUser(function(user_id, done) {
 //     console.log("userserial", user_id)

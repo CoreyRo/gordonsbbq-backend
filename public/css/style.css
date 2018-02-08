@@ -1,4 +1,129 @@
-body {
-  margin: 0; }
+/* ========== BODY / HTML ========== */
 
-/*# sourceMappingURL=style.css.map*/
+body {
+	margin: 0; 
+	padding: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12pt;
+	color: rgb(41, 41, 41);
+}
+
+
+/* ==========NAVBAR SECTION========== */
+.navbar{
+	background-color: #131313 !important;
+}
+
+
+/* ====== MONGO CONFIG SECTION ====== */
+
+
+.config-div{
+	margin-top: 10%;
+	background-color: rgb(236, 236, 236) !important;
+	padding: 50px;
+	border: none !important;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.829);
+}
+
+.config-div form h1{
+	color: #252525;
+	padding-bottom: 5px;
+}
+
+.config-div form p{
+	color: #252525;
+	padding-top: 8px;
+}
+
+.config-div form button{
+	background-color: #8b0000;
+	border: none !important;
+}
+
+.toggle-mongo-div{
+	background-color: #8b0000;
+	text-align: left !important;
+	width: 300px;
+	border-radius: 2px;
+
+}
+
+.config-div .toggle-mongo-div button{
+	background-color: #8b0000;
+	font-size: 12pt;
+
+}
+
+.config-div form button:hover{
+	background-color: #b30000;
+	border: none !important;
+}
+
+.config-div .form-group h4{
+	text-align: left;
+}
+
+.config-div .header-div{
+	text-align: left;
+	border-left: 4px solid #252525;
+	padding: 2px 0px 1px 10px;
+	margin-bottom: 15px;
+}
+.config-div .header-div h1{
+	color: #252525;
+	font-weight: bold;
+	
+}
+.config-div .header-div h2{
+	margin-top: -10px;
+	color: rgb(156, 0, 0);
+	font-weight: bold;
+}
+
+/* ========== LOGIN SECTION ========= */
+
+.login-div{
+	background-color: #000000;
+	padding: 75px;
+	color: #FFFFFF;
+	box-shadow: 3px 3px 2px #13131388;
+	border-radius: 4px;
+}
+
+.login-div img{
+	padding-left: 25px;
+	padding-right: 25px;
+	padding-bottom: 25px;
+
+}
+
+.login-div .header-div{
+	text-align: left;
+	border-left: 4px solid #ff0000;
+	padding: 2px 0px 1px 10px;
+	margin-bottom: 30px;
+}
+
+.login-div .header-div h1{
+	color: #c9c9c9;
+	font-weight: bold;
+	
+}
+
+.login-div .header-div h2{
+	margin-top: -10px;
+	color: rgb(255, 0, 0);
+	font-weight: bold;
+}
+
+.login-div button{ 
+	background-color: #830000;
+	color: #FFFFFF;
+	border:none !important;
+}
+
+.login-div button:hover{ 
+	background-color: #bb0000;
+}
+
