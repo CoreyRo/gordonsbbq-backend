@@ -16,36 +16,16 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <link rel="stylesheet" type='text/css' href="/css/style.css">
-    </head>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
 
-    <body class="text-center">
-        <div class="container config-div">
-            {{> errors }}
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="header-div">
-                        <h1>{{ title }}</h1>
-                        <h2>{{ subTitle }}</h2>
-                    </div>
-                    <div class='toggle-mongo-div'>
-                        <form method="GET" action="/uri">
-                            <button id='toggleInput' type="submit" class="btn btn-lg btn-primary btn-block">Change to MongoDB URI Auth</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    {{> mongoup}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                </div>
-                <div class="col-md-6"> 
-                </div>
-            </div>
-        </div>
-        <script></script>
+    </head>
+    <body>
+        
+        {{{body}}}
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="/js/index.js"></script>
     </body>
 </html>
-
-

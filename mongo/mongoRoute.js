@@ -7,14 +7,14 @@ const getMongoDB = require('./config')
 const expressValidator = require('express-validator');
 router.use(expressValidator());
 
+//Post route to configure mongo
 router.post('/runmongo', function(req,res,next){
+
+    //req validations before writing
     req.checkBody('uri', 'Mongo URI field cannot be empty.').notEmpty();
     req.checkBody('username', 'Username field cannot be empty.').notEmpty();
     req.checkBody('password', 'Password field cannot be empty.').notEmpty();
     const errors = req.validationErrors()
-    let username = req.body.username.trim()
-    let password = req.body.password
-    let mongo_uri = req.body.uri.trim()
     if(errors){
         console.log(`run mongo POST errors: ${JSON.stringify(errors)}`)
         return res.render('config', { 
@@ -22,7 +22,11 @@ router.post('/runmongo', function(req,res,next){
             errors: errors
         })
     }
-    res.ren
+
+    //Temp file write after validation
+    let username = req.body.username.trim()
+    let password = req.body.password
+    let mongo_uri = req.body.uri.trim()
     fs.writeFile(path.join(__dirname, "../tmp/mongotmp.txt"), `${mongo_uri},${username},${password}`, function(err){
         if(err){
             console.log("FILESYSTEM WRITE ERROR", err)
@@ -35,15 +39,14 @@ router.post('/runmongo', function(req,res,next){
         }
         else{
             console.log('FILESYSTEM WRITE SUCCESS!')
+            //Function I wrote to insert the data into the mongooose.connect()
+            //see ./config.js
             getMongoDB(res, function(data){
                 return res.redirect('/login')
- 
-                
             })
         }
     })
 });
-
 
 module.exports = router;
 

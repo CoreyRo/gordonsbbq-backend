@@ -1,0 +1,33 @@
+<div class="row">
+                <div class="col-md-6">
+                    <div class="header-div">
+                        <h1>{{ title }}</h1>
+                        <h2>{{ subTitle }}</h2>
+                    </div>
+                    <div class='toggle-mongo-div'>
+                        <form method="POST" action="/">
+                            <button id='toggleInput' type="submit" class="btn btn-lg btn-primary btn-block">Change to MongoDB URI Auth</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                <form class="form-signin" method="POST" action="/config/runmongo">
+                    <div class="form-group">
+                        <label id="username" class="form-text text-muted text-left">MongoDB Username</label>
+                        <input type="text" id="username" name='username' class="form-control" placeholder="Enter username" required autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="password" class="form-text text-muted text-left">MongoDB Password</label>
+                        <input type="text" id="password" name='password' class="form-control" placeholder="Enter Password" required autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="uri" class="form-text text-muted text-left">MongoDB URI</label>
+                        <input type="text" id="uri" name='uri' class="form-control" placeholder="mongodb://host/myapp" required autofocus>
+                        <p id="uri" class="form-text text-muted">Visit <a href='https://mlab.com/' target='_blank' rel="to Mlabs">MLabs </a>and sign in for your database info</p>
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                </form>
+                </div>
+            </div>

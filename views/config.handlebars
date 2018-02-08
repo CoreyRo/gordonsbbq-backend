@@ -1,0 +1,25 @@
+
+
+    <body class="text-center">
+        <div class="container config-div">
+
+            {{> errors }}
+            {{#if toggler}}
+                {{> mongoup}}
+            {{/if}}
+            {{#unless toggler}}
+                {{> mongouri}}
+            {{/unless}}
+
+            <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6"> 
+                </div>
+            </div>
+        </div>
+        
+    <link type='text/css' href="/helpers/helpers.js">
+
+
+

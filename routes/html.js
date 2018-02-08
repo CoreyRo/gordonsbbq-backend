@@ -1,17 +1,23 @@
 const router = require("express").Router();
+let toggle = true
 
 router.get('/', function(req, res, next) {
     res.render('config', { 
         title: `Gordon's BBQ Backend`,
-        subTitle: `Mongo Database Config`
+        subTitle: `Mongo Database Config`,
+        toggler: toggle
     });
 });
 
-router.get('/uri', function(req, res, next) {
-    res.render('uriconfig', { 
+
+router.post('/', function(req, res, next) {
+    toggle = !toggle
+    res.render('config', { 
         title: `Gordon's BBQ Backend`,
-        subTitle: `Mongo Database Config`
+        subTitle: `Mongo Database Config`,
+        toggler: toggle        
     });
+    
 });
 
 router.get('/login', function(req, res, next) {
