@@ -3,6 +3,10 @@ Author: Corey Rodems
 
 This site is going to be a backend interface to add blog posts, pictures and other customizations to the main site, gordonsbbq.net
 
+## Test Server
+
+[gordonsbbq-backend.herokuapp.com](https://gordonsbbq-backend.herokuapp.com/ 'https://gordonsbbq-backend.herokuapp.com/')
+backend testing remote logins
 ## Using
 - Node
 - Express
