@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 
 const getMongoDB = function(res,cb){
-	fs.readFile(path.join(__dirname, "../tmp/mongo"), 'utf8', (err, readData) =>{
+	fs.readFile(path.join(__dirname, "../tmp/mongotmp.txt"), 'utf8', (err, readData) =>{
 		if (!readData){
 			console.log("FILESYSTEM READ ERROR: ", err)
 			return res.render('config', { 

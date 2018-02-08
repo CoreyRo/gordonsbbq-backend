@@ -23,7 +23,7 @@ router.post('/runmongo', function(req,res,next){
         })
     }
     res.ren
-    fs.writeFile(path.join(__dirname, "../tmp/mongo"), `${mongo_uri},${username},${password}`, function(err){
+    fs.writeFile(path.join(__dirname, "../tmp/mongotmp.txt"), `${mongo_uri},${username},${password}`, function(err){
         if(err){
             console.log("FILESYSTEM WRITE ERROR", err)
             return res.render('config', { 
