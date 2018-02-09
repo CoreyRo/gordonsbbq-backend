@@ -9,12 +9,22 @@ router.use(expressValidator());
 
 //Post route to configure mongo
 router.post('/runmongo', function(req,res,next){
-
+    let errors
+    let uriString =''
     //req validations before writing
-    req.checkBody('uri', 'Mongo URI field cannot be empty.').notEmpty();
-    req.checkBody('username', 'Username field cannot be empty.').notEmpty();
-    req.checkBody('password', 'Password field cannot be empty.').notEmpty();
-    const errors = req.validationErrors()
+    if(req.body.uriOnly){
+        req.checkBody('uriOnly', 'Mongo URI field cannot be empty.').notEmpty();
+        errors = req.validationErrors()
+        uriString = `${req.body.uriOnly.trim()}`
+    }
+    else{
+        req.checkBody('uri', 'Mongo URI field cannot be empty.').notEmpty();
+        req.checkBody('username', 'Username field cannot be empty.').notEmpty();
+        req.checkBody('password', 'Password field cannot be empty.').notEmpty();
+        errors = req.validationErrors()
+        uriString = `${req.body.uri.trim()},${req.body.username.trim()},${req.body.password}`
+    }
+
     if(errors){
         console.log(`run mongo POST errors: ${JSON.stringify(errors)}`)
         return res.render('config', { 
@@ -24,10 +34,7 @@ router.post('/runmongo', function(req,res,next){
     }
 
     //Temp file write after validation
-    let username = req.body.username.trim()
-    let password = req.body.password
-    let mongo_uri = req.body.uri.trim()
-    fs.writeFile(path.join(__dirname, "../tmp/mongotmp.txt"), `${mongo_uri},${username},${password}`, function(err){
+    fs.writeFile(path.join(__dirname, "../tmp/mongotmp.txt"), uriString, function(err){
         if(err){
             console.log("FILESYSTEM WRITE ERROR", err)
             return res.render('config', { 

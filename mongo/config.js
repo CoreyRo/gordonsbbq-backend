@@ -20,30 +20,40 @@ const getMongoDB = function(res,cb){
 
 			//read tempfile and split to an array then use the values to configure the connection
 			let mongoConfigData = readData.split(',')
-
+			console.log('mongoconfig',mongoConfigData)
 			//if using Auth URI, uses this
 			if(mongoConfigData.length === 1){
 				if 	(process.env.NODE_ENV === "production") {
-					mongoose.connect(mongoConfigData[0].toString().trim(), {
-						user: mongoConfigData[1].toString().trim(),
-						pass: mongoConfigData[2].toString()
-					})
+					mongoose.connect(
+						mongoConfigData[0].toString().trim()
+					)
+					console.log('Mongoose Status login production', mongoose.connection.readyState)
 				}
 				else{
-					// local URI 
-					"mongodb://127.0.0.1/gordons-bbq"
+				// local URI "mongodb://127.0.0.1/gordons-bbq"
+					mongoose.connect(
+						mongoConfigData[0].toString().trim()
+					)
+					mongoConfigData[0].toString().trim()
+					console.log('Mongoose Status login local', mongoose.connection.readyState)
 				}
 			}
 
 			//if using user/pass auth, uses this
 			else if(mongoConfigData.length === 3){
 				if 	(process.env.NODE_ENV === "production") {
+					mongoose.connect(mongoConfigData[0].toString().trim(), {
+						user: mongoConfigData[1].toString().trim(),
+						pass: mongoConfigData[2].toString()
+					})
+					console.log('Mongoose Status uri string production', mongoose.connection.readyState)
+				}
+				else{
+					// "mongodb://127.0.0.1/gordons-bbq"
 					mongoose.connect(
 						mongoConfigData[0].toString().trim()
 					)
-				}
-				else{
-					// 	"mongodb://127.0.0.1/gordons-bbq"
+					console.log('Mongoose Status uri string local', mongoose.connection.readyState)
 				}
 			}
 			else{

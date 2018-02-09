@@ -1,6 +1,5 @@
 const db = require('../models')
 const bcrypt = require('bcrypt')
-const pp = require('../passport/passport.js')
 const saltRounds = 10
 
 
