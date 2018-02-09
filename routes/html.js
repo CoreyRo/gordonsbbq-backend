@@ -22,6 +22,8 @@ module.exports = function(router){
         res.render('profile', { title: 'Express' });
 
     });
+
+
 }
 
 

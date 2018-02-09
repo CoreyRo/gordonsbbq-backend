@@ -15,7 +15,7 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
-
+const env = require('dotenv').load();
 const app = express();
 const PORT = process.env.PORT || 3000
 
@@ -23,11 +23,11 @@ const PORT = process.env.PORT || 3000
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1/gordons-bbq")
+mongoose.connect(process.env.MONGODB_LOCALHOST || process.env.MONGODB_URI || process.env.MONGO_MLAB)
 
 // When successfully connected
 mongoose.connection.on('connected', function () {  
-  console.log(`Mongoose default connection open to ${process.env.MONGODB_URI || "mongodb://127.0.0.1/gordons-bbq"}`);
+  console.log(`Mongoose default connection open to ${process.env.MONGODB_LOCALHOST || process.env.MONGODB_URI || process.env.MONGO_MLAB}`);
 }); 
 // If the connection throws an error
 mongoose.connection.on('error',function (err) {  
@@ -76,15 +76,18 @@ app.use(expressValidator())
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  	secret: 'asdfhtreyarsegfASASGGvhfSDVBrfhteadgnOAJHWEgubnlikjfsaddfjhanbSFR',
-  	resave: false,
+  	secret: process.env.SESSION_SECRET,
+	resave: false,
+	unset: 'destroy',
 	saveUninitialized: false,
 	store: new MongoStore({ 
 		mongooseConnection: mongoose.connection,
 		autoRemove: 'interval',
       	autoRemoveInterval: 20 // In minutes. Default
-	})
-  	// cookie: { secure: true }
+	}),	
+  	// cookie: { 
+		  
+	// 	}
 }))
 app.use(passport.initialize());
 app.use(passport.session());
@@ -99,10 +102,10 @@ app.use(function(req, res, next){
 require("./routes/html.js")(app);
 require("./routes/api.js")(app);
 require("./routes/db.js")(app);
-
-
 require('./passport/config.js')(passport, db.User);
 var authRoute = require('./auth/auth.js')(app, passport);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
