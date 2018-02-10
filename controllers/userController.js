@@ -10,8 +10,9 @@ module.exports = {
         console.log("In create")
         let username = req.body.username
         let password = req.body.password
+        console.log("creating user")
         bcrypt.hash(password, saltRounds, function(err, hash) {
-
+ 
             db.User
             .create({
                 username: req.body.username,

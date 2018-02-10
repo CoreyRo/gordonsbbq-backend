@@ -6,12 +6,15 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12pt;
 	color: rgb(41, 41, 41);
+	background-color: rgb(218, 218, 218) !important;
 }
-
+body, html {
+	background-color: rgb(218, 218, 218) !important;
+}
 
 /* ==========NAVBAR SECTION========== */
 .navbar{
-	background-color: #131313 !important;
+	background-color: #0eae9b !important;
 }
 
 
@@ -37,12 +40,12 @@ body {
 }
 
 .config-div form button{
-	background-color: #8b0000;
+	background-color: #0eae9b;
 	border: none !important;
 }
 
 .toggle-mongo-div{
-	background-color: #8b0000;
+	background-color: #0eae9b;
 	text-align: left !important;
 	width: 300px;
 	border-radius: 2px;
@@ -50,13 +53,13 @@ body {
 }
 
 .config-div .toggle-mongo-div button{
-	background-color: #8b0000;
+	background-color: #0eae9b;
 	font-size: 12pt;
 
 }
 
 .config-div form button:hover{
-	background-color: #b30000;
+	background-color: #06d1b9;
 	border: none !important;
 }
 
@@ -77,14 +80,14 @@ body {
 }
 .config-div .header-div h2{
 	margin-top: -10px;
-	color: rgb(156, 0, 0);
+	color: #0eae9b;
 	font-weight: bold;
 }
 
 /* ========== LOGIN SECTION ========= */
 
 .login-div{
-	background-color: #000000;
+	background-color: #FFFFFF;
 	padding: 75px;
 	color: #FFFFFF;
 	box-shadow: 3px 3px 2px #13131388;
@@ -100,30 +103,90 @@ body {
 
 .login-div .header-div{
 	text-align: left;
-	border-left: 4px solid #ff0000;
+	border-left: 4px solid #0eae9b;
 	padding: 2px 0px 1px 10px;
 	margin-bottom: 30px;
 }
 
 .login-div .header-div h1{
-	color: #c9c9c9;
+	color: #1f1f1f;
 	font-weight: bold;
 	
 }
 
 .login-div .header-div h2{
 	margin-top: -10px;
-	color: rgb(255, 0, 0);
+	color: #0eae9b;
 	font-weight: bold;
 }
 
 .login-div button{ 
-	background-color: #830000;
+	background-color: #0eae9b;
 	color: #FFFFFF;
 	border:none !important;
 }
 
 .login-div button:hover{ 
-	background-color: #bb0000;
+	background-color: #0bdac1;
 }
+
+/* ========== BLOG SECTION ========= */
+
+#prevBtn{
+	
+}
+
+#nextBtn{
+	text-align: left !important;
+}
+
+
+/* ========== BLOG SECTION ========= */
+
+.main-header-div{
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+.admin-options{
+	background-color: #0eae9b;
+	padding: 20px 20px 20px 20px;
+	min-height: 215px;
+}
+
+.admin-header{
+	background-color: #0eae9b;
+	padding: 20px 20px 20px 20px;
+	min-height: 215px;
+}
+
+.admin-options ul{
+	list-style: none !important;
+	padding-left: 0px !important;
+}
+
+.main-header-div h3{
+	border-left: 4px solid #FFFFFF;
+	color: #FFFFFF;
+	padding-left: 10px;
+	margin-bottom: 25px;
+}
+
+.admin-options button{
+	text-align: left !important;
+	width: 250px;
+}
+
+.blog-div{
+	background-color: #ffffff;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+.pagerow{
+	background-color: rgb(218, 218, 218);
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
 

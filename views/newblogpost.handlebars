@@ -1,0 +1,84 @@
+{{> header }}
+<div class="blogpage">
+    <div class="main-header-div">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="admin-header">
+                        <h3 >Create a new blog post</h3>
+                        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="admin-options">
+                        <h3 >Admin Controls</h3>
+                        <ul>
+                            <li>
+                                <form method="GET" action='/home'>
+                                    <button id="prevBtn" type="submit" class="admin-btn"><i class="fas fa-plus-square"></i> Home</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form method='GET' action='/newpost'>
+                                    <button type="submit" class="admin-btn"><i class="fas fa-plus-square"></i> Create a new blog post</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form method='GET' action='/api/blog/getone/{{this.id}}'>
+                                    <button type="submit" class="admin-btn"><i class="fas fa-edit"></i> Create a new blog post</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="blog-div">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+
+
+                </div>
+                <div class="col-md-8">
+                    <form action="/api/blog/create" enctype="multipart/form-data" method="POST">
+                        <div class="form-group">
+                            <label for="title">Blog Title</label>
+                            <input type="text" class="form-control" id="title" name="title"placeholder="My new blog title">
+                        </div>
+                        <div class="text-area-div">
+                            <div class="form-group">
+                                <label for="text">Blog Paragraph 1</label>
+                                <textarea class="form-control" id="text" name='text' placeholder="My new blog text..." rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="imageURL">Product Image</label>
+                            <div class="alert alert-secondary" role="alert">
+                                <input type="file" name="imageURL" class="form-control-file" id="image-url" required>  
+                            </div>      
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bot-row">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                  
+                </div>
+                <div class="col-6">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    {{> footer }}

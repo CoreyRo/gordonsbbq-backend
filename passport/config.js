@@ -3,6 +3,7 @@ const saltRounds = 10
 
 
 module.exports = function(passport, User){
+	console.log("in passport")
 	var LocalStrategy = require('passport-local').Strategy;
 
 
@@ -10,8 +11,8 @@ module.exports = function(passport, User){
 	passport.use('local-signup', new LocalStrategy({
         passReqToCallback: true // allows us to pass back the entire request to the callback
 	},
-
 		function(req, username, password, done){
+			console.log("creating user", req.body)
 
 			bcrypt.hash(password, saltRounds, function(err, hash) {
 				User
@@ -22,9 +23,8 @@ module.exports = function(passport, User){
 				.then(function(dbModel){
 					User.findOne({_id: dbModel._id})
 					.then(function(dbResult){
-						console.log(`Logging in user: ${dbResult.username}`)
-						const user_id = dbResult._id
-						req.login(user_id, function(err){
+						console.log(`Logging in user: ${dbResult._id}`)
+						req.login(dbResult, function(err){
 							if (err) {
 								console.log("req.login error:", err)
 								return done(err)
