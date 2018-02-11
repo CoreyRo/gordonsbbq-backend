@@ -2,6 +2,7 @@
 
 const express = require('express');
 const exphbs = require('express-handlebars')
+const methodOverride = require("method-override");
 const path = require('path');
 const fs = require('fs');
 const favicon = require('serve-favicon');
@@ -18,6 +19,7 @@ const MongoStore = require('connect-mongo')(session);
 const env = require('dotenv').load();
 const app = express();
 const PORT = process.env.PORT || 3000
+const { _ } =require('underscore')
 
 
 // Set up promises with mongoose
@@ -46,7 +48,6 @@ mongoose.connection.on('disconnected', function () {
 // }); 
 
 
-
 // ******************************************************************************
 // *** setup express-handlebars instance
 // ==============================================================================
@@ -55,14 +56,47 @@ var hbs = exphbs.create({
   	// Specify helpers which are only registered on this instance.
   	helpers: {
 		foo: function () { return 'FOO!'; },
-		bar: function () { return 'BAR!'; }
+		bar: function () { return 'BAR!'; },
+		everyNth: function(context, every, options){
+			var fn = options.fn, inverse = options.inverse;
+			var ret = "";
+			if(context && context.length > 0) {
+			  for(var i=0, j=context.length; i<j; i++) {
+				var modZero = i % every === 0;
+				ret = ret + fn(_.extend({}, context[i], {
+				  isModZero: modZero,
+				  isModZeroNotFirst: modZero && i > 0,
+				  isLast: i === context.length - 1
+				}));
+			  }
+			} else {
+			  ret = inverse(this);
+			}
+			return ret;
+		},
+		showPrev: function(page, pages, options){
+			console.log("page", page)
+			console.log("pages", pages)
+			if(page <= pages && page > 1){
+				return `<div style="text-align:right;"><form method="GET" action=/api/blog/getpages/${page - 1}><button id="prevBtn" type="submit" class="btn btn-primary btn-sm">PREV</button></form></div>`
+			}			
+		},
+		showNext: function(page, pages, options){
+			if(page < pages){
+				return `<div style="text-align:left;"><form method="GET" action=/api/blog/getpages/${page + 1}><button id="nextBtn" type="submit" class="btn btn-primary btn-sm">NEXT</button></form></div>`
+			}
+
+		}
+
   	}
 });
+
 // view engine setup
 app.engine('handlebars', hbs.engine)
 app.set('view engine', '.handlebars');
 // Handlebars default config
 const partialsDir = __dirname + '/views/partials';
+
 
 // ******************************************************************************
 // *** Express app setup
@@ -73,6 +107,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator())
+app.use(methodOverride("_method"));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
@@ -101,7 +136,7 @@ app.use(function(req, res, next){
 
 require("./routes/html.js")(app);
 require("./routes/api.js")(app);
-require("./routes/db.js")(app);
+require("./routes/blog.js")(app);
 require('./passport/config.js')(passport, db.User);
 var authRoute = require('./auth/auth.js')(app, passport);
 
