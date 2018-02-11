@@ -9,7 +9,7 @@ module.exports = function(router){
         }
         else{
             res.render('login', { 
-                title: 'The Redivo Group',
+                title: 'Gordons BBQ',
                 subTitle: 'Admin Access Level',
                 navBrand: 'ADMIN ACCESS LOGIN' 
             })
@@ -46,7 +46,7 @@ module.exports = function(router){
         }
         else{
             res.render('login', { 
-                title: 'The Redivo Group',
+                title: 'Gordons BBQ',
                 errors: [{
                     msg: 'You must be logged in to view this page'
                 }],
@@ -61,7 +61,7 @@ module.exports = function(router){
         }
         else{
             res.render('login', { 
-                title: 'The Redivo Group',
+                title: 'Gordons BBQ',
                 errors: [{
                     msg: 'You must be logged in to view this page'
                 }],
@@ -76,7 +76,7 @@ module.exports = function(router){
         }
         else{
             res.render('login', { 
-                title: 'The Redivo Group',
+                title: 'Gordons BBQ',
                 errors: [{
                     msg: 'You must be logged in to view this page'
                 }],
