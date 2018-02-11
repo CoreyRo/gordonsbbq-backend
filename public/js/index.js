@@ -9,8 +9,6 @@ $(document).ready(function($){
     })
 
 
-
-
     $("#imageURL").change(function() {
         imgView(this);
     });
