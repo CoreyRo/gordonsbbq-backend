@@ -23,13 +23,13 @@ module.exports = {
                     res.json(err)
                 })
             })
-            form.on('fileBegin', function (name, file){
-                file.path = path.basename(path.dirname('../')) + '/public/imgs/' + file.name;     
-            });
+            // form.on('fileBegin', function (name, file){
+            //     file.path = path.basename(path.dirname('../')) + '/public/imgs/' + file.name;     
+            // });
             
-            form.on('end', function() {
-                console.log('Thanks File Uploaded');
-            });
+            // form.on('end', function() {
+            //     console.log('Thanks File Uploaded');
+            // });
     },
 
     findPages: function(req,res){
