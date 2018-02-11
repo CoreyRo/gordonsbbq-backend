@@ -21,7 +21,7 @@ module.exports = function(router){
             .paginate({}, {
                 page: 1,
                 limit: 3,
-                sort: ({dateAdded:-1}),
+                sort: ({updatedAt:-1}),
             })
             .then(function(dbModel){
                 console.log("Find Page Blog Post:\n", dbModel)

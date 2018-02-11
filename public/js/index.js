@@ -2,10 +2,12 @@
 $(document).ready(function($){
     console.log('loaded')
     console.log($('#text').data('text'))
-    $('#text').val($('#text').data('text'))
+    let text = $('#current_text').val()
+    $('#text').html(text)
     $('.admin-btn-remove-up').on('click', function(e){
         e.preventDefault()
     })
+
 
 
 

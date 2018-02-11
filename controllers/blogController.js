@@ -6,13 +6,17 @@ var path = require('path');
 
 module.exports = {
     create: function(req, res){
+
         var form = new formidable.IncomingForm();
+
         form.parse(req, function(err, fields, files) {
-            db.Blog
+            console.log("FIELDS", fields)
+            console.log("FILES", files)
+             db.Blog
                 .create({
                     title: fields.title,
                     text: fields.text,
-                    img: files.imageURL.name || ""
+                    img: files.imageURL.name || fields.default_imageURL
                 })
                 .then(function(dbModel){
                     console.log("Create New Blog Post:\n", dbModel)
@@ -23,15 +27,18 @@ module.exports = {
                     res.json(err)
                 })
             })
-            if(files.imageURL.name){
-                form.on('fileBegin', function (name, file){
-                    file.path = path.basename(path.dirname('../')) + '/public/imgs/' + file.name;     
-                });
-                
-                form.on('end', function() {
-                    console.log('Thanks File Uploaded');
-                });
-            }
+
+            form.on('fileBegin', function (name, file){
+                if(file.name){
+                    file.path = path.basename(path.dirname('../')) + '/public/imgs/' + file.name;  
+                }
+                return console.log('No new image uploaded')
+            });
+            
+            form.on('end', function() {
+                console.log('Thanks File Uploaded');
+            });
+        
     },
 
     findPages: function(req,res){
@@ -39,7 +46,7 @@ module.exports = {
         .paginate({}, {
             page: parseInt(req.params.num),
             limit: 3,
-            sort: ({dateAdded:-1}),
+            sort: ({updatedAt:-1}),
         })
         .then(function(dbModel){
             console.log("Find Page Blog Post:\n", dbModel)
@@ -87,7 +94,7 @@ module.exports = {
             .then(function(dbModel){
                 console.log("Find All Blog Post:\n", dbModel)
                 res.render('blogpost', {
-                    dbModel: dbModel,
+                    blog: dbModel,
                     
                 })
             })
@@ -99,31 +106,15 @@ module.exports = {
 
     update: function(req, res){
         var form = new formidable.IncomingForm();
-
         form.parse(req, function(err, fields, files) {
             console.log("fields", fields)
-            let = title = fields.title
-            if(!fields.text){
-                let text = fields.current_text
-            }
-            if(fields.text){
-                let text = fields.text
-            }
+            console.log("files", files)
 
-            if(!files.imageURL.name){
-               let img = fields.current_imageURL
-            }
-            if(files.imageURL.name){
-               let img = files.imageURL.name
-            }
-            console.log("title", title)
-            console.log("text", text)
-            console.log("img", img)
             db.Blog
             .findOneAndUpdate({ _id: req.params.id }, {
-                    title: title,
-                    text: text,
-                    img: img || ''
+                    title: fields.title,
+                    text: fields.text || fields.current_text,
+                    img: files.imageURL.name || fields.current_imageURL
                 })
             .then(function(dbModel){
                 console.log("update Blog Post:\n", dbModel)
@@ -134,15 +125,19 @@ module.exports = {
                 res.json(err)                
             })
         })
-        if(files.imageURL.name){
-            form.on('fileBegin', function (name, file){
-                file.path = path.basename(path.dirname('../')) + '/public/imgs/' + file.name;     
-            });
-            
-            form.on('end', function() {
-                console.log('Thanks File Uploaded');
-            });
-        }
+
+        form.on('fileBegin', function (name, file){
+            if(file.name){
+                file.path = path.basename(path.dirname('../')) + '/public/imgs/' + file.name;  
+            }
+            return console.log('No new image uploaded')
+        });
+        
+        form.on('end', function() {
+            console.log('Thanks File Uploaded');
+        });
+    
+
 
     },
 

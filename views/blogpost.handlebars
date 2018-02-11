@@ -56,33 +56,33 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 text-center mx-auto">
-                    <img class="img-fluid previewimg" src="/imgs/{{dbModel.img}}" alt="{{dbModel.img}}" id="{{img}}">
-                    <h6>Current Image: {{dbModel.img}}</h6>
+                    <img class="img-fluid previewimg" src="/imgs/{{blog.img}}" alt="{{blog.img}}" id="{{img}}">
+                    <h6>Current Image: {{blog.img}}</h6>
                 </div>
                 <div class="col-md-8">
                     <div class="row">
-                        <div class="col-md-6"><h4>Title</h4><h6>{{dbModel.title}}</h6></div>
-                        <div class="col-md-6"><h4>Date</h4><h6 id='dateh'>{{dbModel.updatedAt}}</h6></div>
+                        <div class="col-md-6"><h4>Title</h4><h6>{{blog.title}}</h6></div>
+                        <div class="col-md-6"><h4>Date</h4><h6 id='dateh'>{{blog.updatedAt}}</h6></div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <form action="/api/blog/edit/{{dbModel._id}}?_method=PUT" enctype="multipart/form-data" method="POST">
+                            <form action="/api/blog/edit/{{blog._id}}?_method=PUT" enctype="multipart/form-data" method="POST">
                                 <div class="form-group">
                                     <label for="title">Blog title</label>
-                                    <input type="text" value={{dbModel.title}} class="form-control" id="title" name="title">
+                                    <input type="text" value='{{blog.title}}' class="form-control" id="title" name="title">
                                 </div>
                                 <div class="text-area-div">
                                     <div class="form-group">
                                         <label for="text">Blog text</label>
-                                        <textarea class="form-control" value={{dbModel.text}} data-text={{dbModel.text}} id="text" name='text' placeholder="ATTENTION: Leave dbModel blank if you do not want to change the text body!" rows="3"></textarea>
-                                        <input name="current_text" type='text'  id="image-url" hidden>
+                                        <textarea class="form-control" id="text" name='text' placeholder="ATTENTION: Leave blog blank if you do not want to change the text body!" rows="3"></textarea>
+                                        <input name="current_text" type='text' value='{{blog.text}}' id="current_text" hidden>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="imageURL">Blog image</label>
                                     <div class="alert alert-secondary" role="alert">
                                         <input type="file" name="imageURL" class="form-control-file" id="imageURL">
-                                        <input name="current_imageURL" type='text' value={{dbModel.img}} id="image-url" hidden>
+                                        <input name="current_imageURL" type='text' value='{{blog.img}}' id="image-url" hidden>
                                     </div>      
                                 </div>
                                 <div class="row">
