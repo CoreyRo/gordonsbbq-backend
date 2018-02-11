@@ -23,13 +23,15 @@ module.exports = {
                     res.json(err)
                 })
             })
-            // form.on('fileBegin', function (name, file){
-            //     file.path = path.basename(path.dirname('../')) + '/public/imgs/' + file.name;     
-            // });
-            
-            // form.on('end', function() {
-            //     console.log('Thanks File Uploaded');
-            // });
+            if(files.imageURL.name){
+                form.on('fileBegin', function (name, file){
+                    file.path = path.basename(path.dirname('../')) + '/public/imgs/' + file.name;     
+                });
+                
+                form.on('end', function() {
+                    console.log('Thanks File Uploaded');
+                });
+            }
     },
 
     findPages: function(req,res){
@@ -101,20 +103,18 @@ module.exports = {
         form.parse(req, function(err, fields, files) {
             console.log("fields", fields)
             let = title = fields.title
-            let text
-            let img
             if(!fields.text){
-                text = fields.current_text
+                let text = fields.current_text
             }
-            else{
-                text = fields.text
+            if(fields.text){
+                let text = fields.text
             }
 
             if(!files.imageURL.name){
-                img = fields.current_imageURL
+               let img = fields.current_imageURL
             }
-            else{
-                img = files.imageURL.name
+            if(files.imageURL.name){
+               let img = files.imageURL.name
             }
             console.log("title", title)
             console.log("text", text)
@@ -123,7 +123,7 @@ module.exports = {
             .findOneAndUpdate({ _id: req.params.id }, {
                     title: title,
                     text: text,
-                    img: img
+                    img: img || ''
                 })
             .then(function(dbModel){
                 console.log("update Blog Post:\n", dbModel)
@@ -134,13 +134,16 @@ module.exports = {
                 res.json(err)                
             })
         })
-        form.on('fileBegin', function (name, file){
-            file.path = path.basename(path.dirname('../')) + '/public/imgs/' + file.name;     
-        });
-        
-        form.on('end', function() {
-            console.log('Thanks File Uploaded');
-        });
+        if(files.imageURL.name){
+            form.on('fileBegin', function (name, file){
+                file.path = path.basename(path.dirname('../')) + '/public/imgs/' + file.name;     
+            });
+            
+            form.on('end', function() {
+                console.log('Thanks File Uploaded');
+            });
+        }
+
     },
 
     destroy: function(req, res){
