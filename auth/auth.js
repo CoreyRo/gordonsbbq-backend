@@ -20,9 +20,6 @@ module.exports = function(router, passport){
             req.session.destroy()           
             res.redirect('/')
     })
-  
-        
-
 }
 
 // router.post('/create', function(req,res,next){

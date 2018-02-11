@@ -5,13 +5,10 @@ let date = new Date();
 
 const blogSchema = new Schema({
   title: { type: String, required: true },
-  // body: [
-  //   { type: String },
-  // ],
   text: { type: String, required: true },
   img: { type: String, required: true },
-  dateAdded: { type: Date, default: Date.now },
-  dateUpdated: { type: Date, default: Date.now },
+},{
+  timestamps: true
 });
 blogSchema.plugin(mongoosePaginate);
 const Blog = mongoose.model("Blog", blogSchema);

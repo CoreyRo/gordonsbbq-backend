@@ -1,11 +1,9 @@
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 
-
 module.exports = function(passport, User){
 	console.log("in passport")
 	var LocalStrategy = require('passport-local').Strategy;
-
 
 
 	passport.use('local-signup', new LocalStrategy({

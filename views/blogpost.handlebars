@@ -1,14 +1,29 @@
 {{> header }}
-<div class="blogpage">
+
     <div class="main-header-div">
         <div class="container">
-            <div class="row">
+            <div class="row  mx-auto">
                 <div class="col-md-8">
-                    <div class="admin-header">
-                        <h3 >{{blog.page}}</h3>
-                        <h3 >{{blog.pages}}</h3>
-                        <h3 >Blog entry edit</h3>
-                        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="admin-header">
+                                <h3>The Redivo Group Blog Control</h3> 
+                            </div>                        
+                        </div>
+                    </div>
+                    <div class="row mx-auto">
+                        <div class="col-12 header-text-p">
+                            <p>Welcome tho the backend interface for The Redivo Group's Blog. 
+                            Here you can create, update, maintain and remove blog posts.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                          
+                        </div>
+                        <div class="col-6">
+                           
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -17,17 +32,17 @@
                         <ul>
                             <li>
                                 <form method="GET" action='/home'>
-                                    <button id="prevBtn" type="submit" class="admin-btn"><i class="fas fa-plus-square"></i> Home</button>
+                                     <button id="prevBtn" type="submit" class="admin-btn-normal"><p><i class="fas fa-home"></i> Return to home</p></button>
                                 </form>
                             </li>
                             <li>
-                                <form method='GET' action='/newpost'>
-                                    <button type="submit" class="admin-btn"><i class="fas fa-plus-square"></i> Create a new blog post</button>
+                                <form method='GET' action='/blog'>
+                                    <button type="submit" class="admin-btn-normal"><p><i class="fas fa-newspaper"></i> Return to blogs</p></button>
                                 </form>
                             </li>
                             <li>
-                                <form method='GET' action='/api/blog/getone/{{this.id}}'>
-                                    <button type="submit" class="admin-btn"><i class="fas fa-edit"></i> Create a new blog post</button>
+                                <form method='GET' action='/logout'>
+                                    <button type="submit" class="admin-btn-normal"><p><i class="fas fa-sign-out-alt"></i> Logout</p></button>
                                 </form>
                             </li>
                         </ul>
@@ -36,56 +51,60 @@
             </div>
         </div>
     </div>
-    
+   
     <div class="blog-div">
         <div class="container">
             <div class="row">
-   
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-8">
-                                    <h2>{{this.title}}</h2>
+                <div class="col-md-4 text-center mx-auto">
+                    <img class="img-fluid previewimg" src="/imgs/{{dbModel.img}}" alt="{{dbModel.img}}" id="{{img}}">
+                    <h6>Current Image: {{dbModel.img}}</h6>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6"><h4>Title</h4><h6>{{dbModel.title}}</h6></div>
+                        <div class="col-md-6"><h4>Date</h4><h6 id='dateh'>{{dbModel.updatedAt}}</h6></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <form action="/api/blog/edit/{{dbModel._id}}?_method=PUT" enctype="multipart/form-data" method="POST">
+                                <div class="form-group">
+                                    <label for="title">Blog title</label>
+                                    <input type="text" value={{dbModel.title}} class="form-control" id="title" name="title">
                                 </div>
-                                <div class="col-2">
-                                    <form method='GET' action='/api/blog/getone/{{this.id}}'>
-                                        <button type="submit" class="btn btn-default btn-sm"><i class="fas fa-edit"></i></button>
-                                    </form>
+                                <div class="text-area-div">
+                                    <div class="form-group">
+                                        <label for="text">Blog text</label>
+                                        <textarea class="form-control" value={{dbModel.text}} data-text={{dbModel.text}} id="text" name='text' placeholder="ATTENTION: Leave dbModel blank if you do not want to change the text body!" rows="3"></textarea>
+                                        <input name="current_text" type='text'  id="image-url" hidden>
+                                    </div>
                                 </div>
-                                <div class="col-2">
-                                    <form method='POST' action='/api/blog/destroy/{{this.id}}?_method=DELETE'>
-                                        <button type="submit" class="btn btn-default btn-sm"><i class="fas fa-trash-alt"></i></button>
-                                    </form>
+                                <div class="form-group">
+                                    <label for="imageURL">Blog image</label>
+                                    <div class="alert alert-secondary" role="alert">
+                                        <input type="file" name="imageURL" class="form-control-file" id="imageURL">
+                                        <input name="current_imageURL" type='text' value={{dbModel.img}} id="image-url" hidden>
+                                    </div>      
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-
-                                <img src="/imgs/{{this.img}}" alt="{{this.img}}" alt="{{img}}" id="{{img}}" class="img-fluid">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class='text-left ml-auto'>
+                                            <button type="submit" class="admin-btn-normal-up"><p><i class="fas fa-plus-square"></i> Update blog post</p></button>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class='text-right mr-auto'>
+                                            <button type='none' data-toggle="modal" data-target="#exampleModalCenter" class="admin-btn-remove-up"><p><i class="fas fa-trash-alt"></i>  Remove this blog post</p></button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <p>{{this.text}}</p>
-                            </div>
-
+                            </form>
                         </div>
-      
-            </div>
-        </div>
-    </div>
-
-    <div class="pagerow">
-        <div class="container">
-            <div class="row">
-                <div class="col-6">
-                    {{#showPrev blog.page blog.pages}}
-                    {{/showPrev}}
-                </div>
-                <div class="col-6">
-                    {{#showNext blog.page blog.pages}}
-                    {{/showNext}}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-    {{> footer }}
+        
+{{> alert }}
+{{> footer }}
+{{> footer-end }}
