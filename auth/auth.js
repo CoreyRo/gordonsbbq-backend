@@ -22,45 +22,6 @@ module.exports = function(router, passport){
     })
 }
 
-// router.post('/create', function(req,res,next){
-//     console.log('in auth')
-//     let username = req.body.username
-//     let password = req.body.password
-//     bcrypt.hash(password, saltRounds, function(err, hash) {
-//         db.User
-//         .create({
-//             username: req.body.username,
-//             password: hash
-//         })
-//         .then(function(dbModel){
-//             db.User.findOne({_id: dbModel._id})
-//             .then(function(dbResult){
-//                 console.log(`Logging in user: ${dbResult.username}`)
-//                 const user_id = dbResult._id
-//                 req.login(user_id, function(err){
-                    
-//                     if (err) {
-//                         console.log("req.login error:", err)
-//                         return err
-//                     }
-//                     else{
-//                         console.log(`Logged in user: ${dbResult.username}`)
-//                         res.redirect('/')
-//                     }
-
-//                 })
-//             })
-//             .catch(function(err){
-//                 console.log("UserFound Error:\n", err)
-//                 res.json(err)
-//             })
-//         })
-//         .catch(function(err){
-//             console.log("Create New User Error:\n", err)
-//             res.json(err)
-//         })
-//     })
-// })
 
 // router.post('/login', passport.authenticate(
 //     'local', {

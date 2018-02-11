@@ -12,7 +12,7 @@ module.exports = {
                 .create({
                     title: fields.title,
                     text: fields.text,
-                    img: files.imageURL.name
+                    img: files.imageURL.name || ""
                 })
                 .then(function(dbModel){
                     console.log("Create New Blog Post:\n", dbModel)
@@ -41,7 +41,7 @@ module.exports = {
         })
         .then(function(dbModel){
             console.log("Find Page Blog Post:\n", dbModel)
-            
+
             if (dbModel.docs.length <= 0){
                 res.render('blog', {
                     title: "The blog database is empty",
