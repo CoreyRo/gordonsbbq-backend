@@ -1,17 +1,15 @@
 const db = require('../models')
-var formidable = require('formidable');
-var path = require('path');  
+const formidable = require('formidable');
+const path = require('path');  
+const nl2br  = require('nl2br');
 
 
 
 module.exports = {
     create: function(req, res){
 
-        var form = new formidable.IncomingForm();
-
+        let form = new formidable.IncomingForm();
         form.parse(req, function(err, fields, files) {
-            console.log("FIELDS", fields)
-            console.log("FILES", files)
              db.Blog
                 .create({
                     title: fields.title,
@@ -54,14 +52,15 @@ module.exports = {
             if (dbModel.docs.length <= 0){
                 res.render('blog', {
                     title: "The blog database is empty",
-                    subTitle: 'Click "Create a new blog post" to start',
-                    user: req.user.username
+                    subTitle: 'Click "Create a New Blog Entry" to start',
+                    username: req.user.username,
                 })
             }
             else{
                 res.render('blog', {
                     blog: dbModel,
-                    user: req.user.username
+                    title: 'Blog Entries Page ' + dbModel.page + ' of ' + dbModel.pages,
+                    username: req.user.username,
                 })
             }
 
@@ -95,6 +94,9 @@ module.exports = {
                 console.log("Find All Blog Post:\n", dbModel)
                 res.render('blogpost', {
                     blog: dbModel,
+                    title: "Update Blog Post",
+                    pageTitle: "Gordon's BBQ - Update Post",
+                    username: req.user.username
                     
                 })
             })
@@ -109,7 +111,6 @@ module.exports = {
         form.parse(req, function(err, fields, files) {
             console.log("fields", fields)
             console.log("files", files)
-
             db.Blog
             .findOneAndUpdate({ _id: req.params.id }, {
                     title: fields.title,

@@ -15,8 +15,9 @@ module.exports = function(passport, User){
 			bcrypt.hash(password, saltRounds, function(err, hash) {
 				User
 				.create({
-					username: req.body.username,
-					password: hash
+					username: req.body.username.toLowerCase(),
+					password: hash,
+					email: req.body.email.toLowerCase()
 				})
 				.then(function(dbModel){
 					User.findOne({_id: dbModel._id})
@@ -56,7 +57,7 @@ module.exports = function(passport, User){
 			console.log("username", username)
 			console.log('password', password)
 				User
-				.findOne({username})
+				.findOne({username: username.toLowerCase()})
 				.then((user) =>{
 					if (!user){
 						console.log('No user found')
