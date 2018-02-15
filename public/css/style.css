@@ -329,7 +329,7 @@ padding-bottom: 15px;
 }
 
 .card-text{
-	white-space: pre;
+	white-space: pre-wrap !important;
 }
 
 #nores{
