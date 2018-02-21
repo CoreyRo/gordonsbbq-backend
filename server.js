@@ -6,7 +6,6 @@ const flash = require('express-flash');
 const methodOverride = require("method-override");
 const path = require('path');
 const fs = require('fs');
-const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
