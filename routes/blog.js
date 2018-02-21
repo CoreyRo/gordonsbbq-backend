@@ -1,5 +1,4 @@
 
-const user = require('../controllers/userController.js')
 const blog = require('../controllers/blogController.js')
 
 module.exports = function(router){

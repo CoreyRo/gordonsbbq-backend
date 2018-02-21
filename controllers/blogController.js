@@ -65,7 +65,6 @@ module.exports = {
 
             })
             .catch(function (err) {
-                console.log("Find Page Blog Post Error:\n", err)
                 req.flash('error', 'There was an error finding that user.')
                 res.redirect('/home')
             })
@@ -81,7 +80,6 @@ module.exports = {
                 res.json(dbModel)
             })
             .catch(function (err) {
-                console.log("Find All Blog Post Error:\n", err)
                 res.json(err)
             })
     },
@@ -102,8 +100,8 @@ module.exports = {
                 })
             })
             .catch(function (err) {
-                console.log("Find Blog Post Error:\n", err)
-                res.json(err)
+                req.flash('error', 'There was an error finding that user.')
+                res.redirect('/home')
             })
     },
 
@@ -120,12 +118,11 @@ module.exports = {
                     img: files.imageURL.name || fields.current_imageURL
                 })
                 .then(function (dbModel) {
-                    console.log("update Blog Post:\n", dbModel)
                     res.redirect('/blog')
                 })
                 .catch(function (err) {
-                    console.log("update Blog Post Error:\n", err)
-                    res.json(err)
+                    req.flash('error', 'There was an error updating.')
+                    res.redirect('/blog')
                 })
         })
         form.on('fileBegin', function (name, file) {
@@ -145,13 +142,11 @@ module.exports = {
             .Blog
             .findOne({_id: req.params.id})
             .then(function (dbModel) {
-                console.log("destroy Blog Post:\n", dbModel)
                 dbModel.remove()
                 req.flash('success', 'The post was deleted.')
                 res.redirect('/blog')
             })
             .catch(function (err) {
-                console.log("destroy Blog Post Error:\n", err)
                 req.flash('error', 'There was an error deleting the post.')
                 res.redirect('/blog')
             })

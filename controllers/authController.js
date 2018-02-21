@@ -13,22 +13,6 @@ const {matchedData, sanitize} = require('express-validator/filter');
 module.exports = {
 
     // Post /register
-    doRegister: function (req, res, next) {
-        const errors = validationResult(req)
-        if (!errors.isEmpty()) {
-            return (res.render('register', {
-                title: 'Register new user',
-                pageTitle: "Register new user",
-                valErrors: errors.mapped(),
-                req: req.body
-            }))
-        } else {
-            passport.authenticate('local-signup')(req, res, function () {
-                return res.json(req.user)
-            })
-        }
-    },
-
     registerUser: function (req, res, next) {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
@@ -70,7 +54,6 @@ module.exports = {
                     .catch(function (err) {
                         req.flash('error', 'There was a problem trying to register the new user')
                         res.redirect('/home')
-                        console.log("Create New User Error:\n", err)
                     })
             })
         }
@@ -78,7 +61,6 @@ module.exports = {
 
     // Post /login
     doLogin: function (req, res) {
-        console.log("in doLogin")
         passport.authenticate('local-signin', {
             successRedirect: '/home',
             failureRedirect: '/'
@@ -89,10 +71,8 @@ module.exports = {
     doForgot: function (req, res, next) {
         async.waterfall([
             done => crypto.randomBytes(20, (err, buf) => done(err, buf.toString('hex'))),
-
             (token, done) => {
                 const errors = validationResult(req)
-                console.log("validated")
                 if (!errors.isEmpty()) {
                     return (res.render('forgot', {
                         title: 'Forgot Password',
@@ -101,7 +81,6 @@ module.exports = {
                         valErrors: errors.mapped()
                     }))
                 } else {
-                    console.log("validated")
                     db
                         .User
                         .findOneAndUpdate({
@@ -127,11 +106,9 @@ module.exports = {
                                     pageTitle: "Reset Password"
                                 })
                             }
-                            console.log(user)
                             done(null, token, user)
                         })
                         .catch(err => {
-                            console.log('token error: ', err)
                             done(err)
                         })
                 }
@@ -154,7 +131,6 @@ module.exports = {
                             ' remain unchanged.\n'
                 };
                 smtpTransport.sendMail(mailOptions, function (err) {
-                    console.log('mail sent');
                     done(err, 'done');
                     res.render('login', {
                         title: "Gordon's BBQ",
@@ -171,7 +147,6 @@ module.exports = {
             }
         ], err => {
             if (err) {
-                console.log("forgot error: ", err)
                 res.render('forgot', {
                     title: "Gordon's BBQ",
                     errors: [
@@ -189,7 +164,6 @@ module.exports = {
     },
 
     doResetCheck: function (req, res, next) {
-        console.log("in reset check")
         db
             .User
             .findOne({
@@ -220,7 +194,10 @@ module.exports = {
                     })
                 }
             })
-            .catch(err => console.log("error", err))
+            .catch(err => {
+                req.flash('error', 'An unexpected error occured.')
+                res.redirect('/login')
+            })
     },
 
     doReset: function (req, res, next) {
@@ -239,8 +216,6 @@ module.exports = {
                 }
                 let password = req.body.password
                 bcrypt.hash(password, saltRounds, function (err, hash) {
-                    console.log('hash', hash)
-                    console.log('token', req.params.token)
                     let conditions = {
                         resetPasswordToken: req.params.token,
                         resetPasswordExpire: {
@@ -255,7 +230,6 @@ module.exports = {
                             resetPasswordExpire: null
                         })
                         .then(user => {
-                            console.log('user', user)
                             if (!user) {
                                 res.render('login', {
                                     title: "Gordon's BBQ",
@@ -271,7 +245,10 @@ module.exports = {
                             }
                             done(null, user)
                         })
-                        .catch(err => console.log("update-pass err: ", err))
+                        .catch(err => {
+                            req.flash('error', 'There was an error updating.')
+                            res.redirect('/home')
+                        })
                 })
             },
             function (user, done) {
@@ -289,7 +266,6 @@ module.exports = {
                     text: 'Hello,\n\nThis is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
                 };
                 smtpTransport.sendMail(mailOptions, function (err) {
-                    console.log('mail sent');
                     done(err, 'done');
                     if (req.isAuthenticated()) {
                         res.render('home', {
@@ -320,7 +296,6 @@ module.exports = {
             }
         ], err => {
             if (err) {
-                console.log("forgot error: ", err)
                 res.render('forgot', {
                     title: "Gordon's BBQ",
                     errors: [
@@ -350,11 +325,9 @@ module.exports = {
                         let hash = req.user.password
                         bcrypt.compare(password, hash, function (err, result) {
                             if (result) {
-                                console.log("true")
                                 return done()
 
                             } else {
-                                console.log("Pass do not match")
                                 req.flash('error', 'Password entered does not match our records.')
                                 res.redirect('/change-password')
                             }
@@ -387,7 +360,6 @@ module.exports = {
                         }, {password: hash})
                         .then(user => {
                             if (!user) {
-                                console.log('Nouser', user)
                                 req.flash('error', 'No user records found, please contact administrator or reset password via "Forgo' +
                                         't Password".')
                                 res.redirect('/logout')
@@ -397,7 +369,6 @@ module.exports = {
                             }
                         })
                         .catch(err => {
-                            console.log("update-pass err: ", err)
                             req.flash('error', 'Fatal Error Occured, please contact administrator or reset password via "Forgot ' +
                                     'Password".')
                             res.redirect('/logout')
@@ -406,7 +377,6 @@ module.exports = {
             }
         ], err => {
             if (err) {
-                console.log("forgot error: ", err)
                 req.flash('error', 'Fatal Error Occured, please try again.')
                 res.redirect('/home')
             }
@@ -423,8 +393,6 @@ module.exports = {
                 sort: ({updatedAt: -1})
             })
             .then(function (dbModel) {
-                console.log("Find Page user:\n", dbModel)
-
                 if (dbModel.docs.length <= 0) {
                     res.render('user', {
                         title: "The user database is empty",
@@ -442,7 +410,8 @@ module.exports = {
                 }
             })
             .catch(function (err) {
-                console.log("Find Page user Post Error:\n", err)
+                req.flash('error', 'There was an error finding users.')
+                res.redirect('/home')
             })
     },
 
@@ -452,8 +421,6 @@ module.exports = {
             function (done) {
                 const errors = validationResult(req)
                 if (!errors.isEmpty()) {
-                    console.log("User", req.body)
-                    console.log("erros", errors.array())
                     return (res.render('updateUser', {
                         title: "Update user information",
                         pageTitle: "Gordons BBQ - Update User",
@@ -475,11 +442,9 @@ module.exports = {
                         let hash = req.user.password
                         bcrypt.compare(password, hash, function (err, result) {
                             if (result) {
-                                console.log("true")
                                 return done()
 
                             } else {
-                                console.log("Pass do not match")
                                 req.flash('error', 'Password entered does not match our records.')
                                 res.redirect('/change-password')
                             }
@@ -509,12 +474,10 @@ module.exports = {
     },
 
     findOne: function (req, res) {
-        console.log("in find one")
         db
             .User
             .findOne({_id: req.params.id})
             .then(function (dbModel) {
-                console.log("Find All Blog Post:\n", dbModel)
                 res.render('updateUser', {
                     users: dbModel,
                     title: "Update user information",
@@ -537,13 +500,11 @@ module.exports = {
             .User
             .findOne({_id: req.params.id})
             .then(function (dbModel) {
-                console.log("destroy Blog Post:\n", dbModel)
                 dbModel.remove()
                 req.flash('success', 'User account was successfully removed.')
                 res.redirect('/manage-users')
             })
             .catch(function (err) {
-                console.log("destroy Blog Post Error:\n", err)
                 req.flash('error', 'There was an error removing the account: ' + err)
                 res.redirect('/manage-users')
             })

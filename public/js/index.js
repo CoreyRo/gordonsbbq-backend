@@ -1,17 +1,11 @@
 $(document)
     .ready(function ($) {
-        console.log('loaded')
-        console.log($('#text').data('text'))
         let text = $('#current_text').val()
-
         $('#text').html(text)
         $('.delete-btn').on('click', function (e) {
-            console.log("clicked")
             e.preventDefault()
         })
-        // col-md-9 float-left col px-5 pl-md-2 pt-2 main
         $('[data-toggle="collapse"]').on('click', function () {
-            console.log("COLLAPSE CLICK")
 
             if ($('.main').hasClass('dumped')) {
 
@@ -28,11 +22,9 @@ $(document)
                             .removeClass()
                             .addClass('main dumped px-5')
                     })
-
             }
 
         });
-
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
             $(".side-nav .collapse").on("hide.bs.collapse", function () {
@@ -56,6 +48,7 @@ $(document)
         $("#imageURL").change(function () {
             imgView(this);
         });
+
         function imgView(input) {
             if (input.files && input.files[0]) {
                 $('.preview-image').html(input.files[0].name)
@@ -91,10 +84,9 @@ $(document)
                         .one(animationEnd, function () {
                             $(this).removeClass('animated ' + animationName);
 
-                            if (typeof callback === 'function') 
+                            if (typeof callback === 'function')
                                 callback();
-                            }
-                        );
+                        });
 
                     return this;
                 }

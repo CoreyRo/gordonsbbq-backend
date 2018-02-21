@@ -25,7 +25,6 @@ module.exports = function (router) {
                     sort: ({updatedAt: -1})
                 })
                 .then(function (dbModel) {
-                    console.log("Find Page Blog Post:\n", dbModel)
                     if (dbModel.docs.length <= 0) {
                         res.render('blog', {
                             title: "Blog Database is Empty",
@@ -45,8 +44,8 @@ module.exports = function (router) {
                     }
                 })
                 .catch(function (err) {
-                    console.log("Find Page Blog Post Error:\n", err)
-                    res.json(err)
+                    req.flash('error', 'There was an error finding blog posts.')
+                    res.redirect('/home')
                 })
         } else {
             res.render('login', {
@@ -185,8 +184,6 @@ module.exports = function (router) {
             sort: ({updatedAt:-1}),
         })
         .then(function(dbModel){
-            console.log("Find Page user:\n", dbModel)
-
             if (dbModel.docs.length <= 0){
                 res.render('users', {
                     title: "The user database is empty",
@@ -205,7 +202,8 @@ module.exports = function (router) {
             }
         })
         .catch(function(err){
-            console.log("Find Page user Post Error:\n", err)
+            req.flash('error', 'There was an error the users.')
+            res.redirect('/home')
         })
     }
     else{

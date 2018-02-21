@@ -32,7 +32,6 @@ module.exports = function (passport, User) {
                         return done(null, dbModel)
                     })
                     .catch(function (err) {
-                        console.log("Create New User Error:\n", err)
                         return done(null, false, req.flash('error', 'Create New User Error:\n",' + err))
                     })
             })
@@ -46,7 +45,6 @@ module.exports = function (passport, User) {
             .findOne({username: username.toLowerCase()})
             .then((user) => {
                 if (!user) {
-                    console.log('No user found')
                     return done(null, false, req.flash('error', 'Username not found'))
                 } else {
                     const hash = user.password
@@ -54,7 +52,6 @@ module.exports = function (passport, User) {
                         if (res) {
                             return done(null, user)
                         } else {
-                            console.log("Pass do not match")
                             return done(null, false, req.flash('error', 'Password entered does not match our records.'))
 
                         }
@@ -62,8 +59,7 @@ module.exports = function (passport, User) {
                 }
             })
             .catch((err) => {
-                console.log('login find username err:', err)
-                return done(err)
+                return done(err, req.flash('error', 'Something went wrong.'))
             })
     }))
 
@@ -83,7 +79,7 @@ module.exports = function (passport, User) {
                 }
             })
             .catch((err) => {
-                console.log("Deserial FindOne error", err)
+                if(err) throw err
             })
     });
 }

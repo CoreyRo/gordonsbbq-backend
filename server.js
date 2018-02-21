@@ -94,8 +94,6 @@ var hbs = exphbs.create({
             return ret;
         },
         showPrev: function (page, pages, type, options) {
-            console.log("page", page)
-            console.log("pages", pages)
             if (page <= pages && page > 1) {
                 return `<div style="text-align:right;"><form method="GET" action=/${type}/getpages/${page - 1}><button id="prevBtn" type="submit" class="btn btn-primary btn-sm">PREV</button></form></div>`
             }
@@ -151,7 +149,6 @@ app.use(function (req, res, next) {
 //routes
 
 require("./routes/html.js")(app);
-require("./routes/api.js")(app);
 require("./routes/blog.js")(app);
 require('./passport/config.js')(passport, db.User);
 var authRoute = require('./auth/auth.js')(app, passport);
