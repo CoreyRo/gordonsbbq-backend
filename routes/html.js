@@ -10,7 +10,8 @@ module.exports = function (router) {
                 res.render('login', {
                     title: "Gordon's BBQ",
                     subTitle: 'Admin Access Level',
-                    pageTitle: "Login"
+                    pageTitle: "Login",
+                    error: req.flash('error')
                 })
             }
         })
@@ -29,14 +30,17 @@ module.exports = function (router) {
                         res.render('blog', {
                             title: "Blog Database is Empty",
                             subTitle: 'Click "Create a new blog post" to start',
-                            username: req.user.username
+                            username: req.user.username,
+                            user: req.user
                         })
                     } else {
                         res.render('blog', {
                             blog: dbModel,
                             username: req.user.username,
                             title: 'Blog Entries Page ' + dbModel.page + ' of ' + dbModel.pages,
-                            pageTitle: "Gordons BBQ Blog Entries",
+                            pageTitle: "Gordon's BBQ Blog Entries",
+                            user: req.user,
+                            type: 'blog'
                         })
                     }
                 })
@@ -49,6 +53,8 @@ module.exports = function (router) {
                 title: "Gordon's BBQ",
                 errors: [
                     {
+                        alertType: 'danger',
+                        alertIcon: 'fas fa-exclamation-triangle',
                         msg: 'You must be logged in to view this page'
                     }
                 ],
@@ -62,13 +68,16 @@ module.exports = function (router) {
             res.render('home', {
                 title: "Logged in as: " + req.user.username,
                 pageTitle: 'Gordons BBQ Blog - Home',
-                username: req.user.username
+                username: req.user.username,
+                user: req.user
             })
         } else {
             res.render('login', {
                 title: "Gordon's BBQ",
                 errors: [
                     {
+                        alertType: 'danger',
+                        alertIcon: 'fas fa-exclamation-triangle',
                         msg: 'You must be logged in to view this page'
                     }
                 ],
@@ -82,18 +91,46 @@ module.exports = function (router) {
             res.render('newblogpost', {
                 user: req.user.username,
                 title: "Create New Blog Entry",
-                pageTitle: "Gordons BBQ - New Blog Entry",
-                username: req.user.username
+                pageTitle: "Gordon's BBQ - New Blog Entry",
+                username: req.user.username,
+                user: req.user
             })
         } else {
             res.render('login', {
                 title: "Gordon's BBQ",
                 errors: [
                     {
+                        alertType: 'danger',
+                        alertIcon: 'fas fa-exclamation-triangle',
                         msg: 'You must be logged in to view this page'
                     }
                 ],
-                pageTitle: "Login",
+                pageTitle: "Login"
+            })
+        }
+    })
+
+    router.get('/change-password', function (req, res, next) {
+        if (req.isAuthenticated()) {
+            res.render('changepass', {
+                user: req.user.username,
+                title: "Change Password",
+                pageTitle: "Gordon's BBQ - Change Password",
+                subTitle: 'Create a new password',
+                username: req.user.username,
+                user: req.user
+            })
+        } else {
+            res.render('login', {
+                title: "Gordon's BBQ",
+                errors: [
+                    {
+                        alertType: 'danger',
+                        alertIcon: 'fas fa-exclamation-triangle',
+                        msg: 'You must be logged in to view this page'
+                    }
+                ],
+                pageTitle: "Login"
             })
         }
     })
@@ -110,15 +147,18 @@ module.exports = function (router) {
         if (req.isAuthenticated()) {
             res.render('register', {
                 user: req.user.username,
-                title: "Register New Admin User",
-                pageTitle: "Gordons BBQ - Add User",
-                username: req.user.username
+                title: "Register a new user",
+                pageTitle: "Gordon's BBQ - Add User",
+                username: req.user.username,
+                user: req.user
             })
         } else {
             res.render('login', {
                 title: "Gordon's BBQ",
                 errors: [
                     {
+                        alertType: 'danger',
+                        alertIcon: 'fas fa-exclamation-triangle',
                         msg: 'You must be logged in to view this page'
                     }
                 ],
@@ -127,4 +167,84 @@ module.exports = function (router) {
         }
     })
 
+    router.get('/forgot', function (req, res) {
+        (res.render('forgot', {
+            title: 'Forgot Password',
+            pageTitle: "Forgot Password",
+            subTitle: 'Enter the email address for your account'
+        }))
+
+    })
+
+    router.get('/manage-users', function (req, res, next) {
+        if (req.isAuthenticated()) {
+        db.User
+        .paginate({}, {
+            page: 1,
+            limit: 3,
+            sort: ({updatedAt:-1}),
+        })
+        .then(function(dbModel){
+            console.log("Find Page user:\n", dbModel)
+
+            if (dbModel.docs.length <= 0){
+                res.render('users', {
+                    title: "The user database is empty",
+                    subTitle: 'Click "Create a new user post" to start',
+                    username: req.user.username,
+                })
+            }
+            else{
+                res.render('users', {
+                    users: dbModel,
+                    title: 'User Accounts Page ' + dbModel.page + ' of ' + dbModel.pages,
+                    username: req.user.username,
+                    user: req.user,
+                    type: 'users'
+                })
+            }
+        })
+        .catch(function(err){
+            console.log("Find Page user Post Error:\n", err)
+        })
+    }
+    else{
+        res.render('login', {
+            title: "Gordon's BBQ",
+            errors: [
+                {
+                    alertType: 'danger',
+                    alertIcon: 'fas fa-exclamation-triangle',
+                    msg: 'You must be logged in to view this page'
+                }
+            ],
+            pageTitle: "Login"
+        })        
+    }
+
+    })
+    router.get('/edit-profile', function (req, res, next) {
+        if (req.isAuthenticated()) {
+            res.render('updateUser', {
+                users: req.user,
+                title: "Edit your information",
+                pageTitle: "Gordon's BBQ - Edit information",
+                subTitle: 'Edit your information',
+                username: req.user.username,
+                user: req.user
+            })
+        } else {
+            res.render('login', {
+                title: "Gordon's BBQ",
+                errors: [
+                    {
+                        alertType: 'danger',
+                        alertIcon: 'fas fa-exclamation-triangle',
+                        msg: 'You must be logged in to view this page'
+                    }
+                ],
+                pageTitle: "Login"
+            })
+        }
+    })
 }

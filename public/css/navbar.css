@@ -2,20 +2,18 @@
     overflow-x: hidden;
     height: 100%;
     z-index: 3;
-
 }
+
 #flex-wrap{
     height: 100%;
-    
 }
 #container{
     height: 100%;
 }
 
-
 #sidebar .list-group {
     min-width: 200px;
-    background-color: #333;
+    background-color: rgb(0, 0, 0);
     height: 100%;
     border-radius: 0;
 }
@@ -26,16 +24,17 @@
 
 #sidebar .list-group-item {
     border-radius: 0;
-    background-color: #333;
+    background-color: rgb(0, 0, 0);
     color: #ccc;
     border-left: 0;
     border-right: 0;
     border-color: #2c2c2c;
     white-space: nowrap;
 }
-
 #sidebar .list-group-item:hover {
-    background-color: rgba(0, 38, 255, 0.432);
+    background-color: rgb(104, 0, 0);
+    border-color: #969696;
+
 }
 
 /* highlight active menu */
@@ -51,13 +50,16 @@
   text-align: right;
   padding-left: 5px;
 }
+
 .clicked{
     display: none !important;
 }
+
 /* open state */
 #sidebar .list-group .list-group-item[aria-expanded="true"] {
   background-color: #222;
 }
+
 #sidebar .list-group .list-group-item[aria-expanded="true"]::after {
   content: " \f0da";
   font-family: FontAwesome;
@@ -92,10 +94,14 @@
 #drop-down{
     position: absolute;
     right: 8%;
-    top: 10%;
+    top:5%;
 }
 .container-fluid{
 
+}
+
+.bg-dark{
+    background-color: rgb(12, 12, 12) !important;
 }
 
 @media (max-width:770px) {
@@ -126,7 +132,7 @@
     display: none;
     }
     .container-fluid{
-        margin: 5% 1% 0 1% !important;
+        margin: 5% 1% 0 5% !important;
     }
 
     #flex-wrap{
@@ -143,6 +149,10 @@
     #sidebar, #sidebar .list-group {
         min-width: 35px;
         overflow: visible;
+    }
+    #sidebar .list-group{
+        min-width: 41px;
+
     }
     /* overlay sub levels on small screens */
     #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
@@ -183,4 +193,19 @@
   height: 100%;
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
+}
+
+@media (max-width:450px) {
+    .container-fluid{
+        margin: 5% 1% 0 2% !important;
+    }
+    .container{
+        padding-right: 10px;
+        padding-left: 15px;
+    }
+    .pl-5,.pr-5, .px-5{
+        padding-left: 2.6rem !important;
+        padding-right: 2.6rem !important;
+    }
+
 }
