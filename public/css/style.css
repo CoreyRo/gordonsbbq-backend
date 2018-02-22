@@ -22,53 +22,37 @@ body li{
 	
 }
 
-.new-blog{
-	padding: 15px 0 15px 0;
+.holder-div{
+	padding: 40px 0 30px 0;
 	margin: 15px auto 10px auto;
 }
 
-.new-blog .header-div{
+
+.new-blog{
+
+}
+
+.holder-div{
+	padding: 40px 0 30px 0;
+	margin: 15px auto 10px auto;
+}
+
+.holder-div .header-div{
 	border-left: 4px solid #c20000;
 	margin-bottom: 30px;
 	margin-top: 0px;
 
 }
-.new-blog .header-div h1{
+.holder-div .header-div h1{
 	font-weight: bold;
 	padding-left: 5px;
 }
+
+
 
 .reset-div{
 	padding: 15px 0 15px 0;
 	margin: 15px auto 10px auto;
-}
-
-.reset-div .header-div{
-	border-left: 4px solid #c20000;
-	margin-bottom: 30px;
-	margin-top: 0px;
-
-}
-.reset-div .header-div h1{
-	font-weight: bold;
-	padding-left: 5px;
-}
-
-
-.users-div{
-	padding: 15px 0 15px 0;
-	margin: 15px auto 10px auto;
-}
-
-.users-div .header-div{
-	border-left: 4px solid #c20000;
-	margin-bottom: 30px;
-	margin-top: 0px;
-
-}
-.users-div .header-div h1{
-	font-weight: bold;
-	padding-left: 5px;
 }
 
 body label{
@@ -81,8 +65,9 @@ body label{
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-.container-fluid {
-
+.container-fluid{
+	margin: auto !important;
+    padding: 0 2% 0 5%;
 }
 
 
@@ -160,13 +145,11 @@ nav{
 
 .login-div{
 	background-color: rgb(228, 228, 228);
-	padding: 5px;
+	padding: 4px;
 	color: rgb(0, 0, 0);
 	box-shadow: 3px 3px 2px #13131388;
 	border-radius: 4px;
-	position: absolute;
-	top: 100px;
-	margin:0 !important;
+	margin: 0 auto 10px auto !important;
 }
 
 
@@ -178,9 +161,10 @@ nav{
 
 }
 
+
 .register-div{
 	background-color: rgb(228, 228, 228);
-	padding: 15px;
+	padding: 6px;
 	color: rgb(0, 0, 0);
 	box-shadow: 3px 3px 2px #13131388;
 	border-radius: 4px;
@@ -193,9 +177,6 @@ nav{
 	padding-left: 5px;
 }
 
-.users-div{
-
-}
 
 .users-div .fa-edit{
 	color: #003cff;
@@ -233,6 +214,27 @@ nav{
 	line-height: .4rem;
 }
 
+.this-user-list{
+	margin: 0 auto;
+	line-height: .2rem;
+
+}
+
+#this-user-info{
+	margin: 0 auto 0 auto;
+}
+
+#this-user-info p{
+	border-bottom: 1px solid #777;
+	padding-bottom: 0px !important;
+}
+
+.this-user-list li{
+	line-height: .2rem;
+	margin-left: -10%;
+}
+
+
 /* ========== LOGIN SECTION ========= */
 
 .reset-div{
@@ -258,18 +260,6 @@ nav{
 	padding-bottom: 25px;
 }
 
-.login-div .header-div{
-	text-align: left;
-	border-left: 4px solid #c20000;
-	padding: 2px 0px 1px 10px;
-	margin-bottom: 30px;
-}
-
-.login-div .header-div h1{
-	color: #1f1f1f;
-	font-weight: bold;
-	
-}
 .login-div .buttonL{ 
 	background-color: #003cff;
 	color: #FFFFFF;
@@ -285,7 +275,6 @@ nav{
 	color: #c20000;
 	font-weight: bold;
 }
-
 
 
 .main{
@@ -354,8 +343,8 @@ nav{
 
 .home-div{
 	background-color: #e9e9e9;
-	padding-top: 50px;
-	padding-bottom: 50px;
+	padding: 40px 0 30px 0;
+	margin: 15px auto 10px auto;
 }
 
 .homeimg{
@@ -507,58 +496,52 @@ margin-bottom: 0px;
 	margin-top: 5px;
 }
 
+@media screen and (max-width: 1024px) {
+	.edit-row i{
+		text-align: right !important;
+	}
+
+	
+    .container-fluid{
+        margin: auto !important;
+        padding: 0 0px 0 75px !important;
+	}
+	
+	#sidebar .list-group {
+        margin-top: 15px;
+    }
+
+}
+
 
 
 @media screen and (max-width: 1600px)  {
 	.edit-row i{
 		text-align: right !important;
 	}
-	.text-left{
-		text-align: center !important;
-		margin: 0 auto !important
 
-	}
-	
-	.text-right{
-		text-align: center !important;
-		margin: 0 auto !important
 
-	}
+	.container-fluid{
+        margin: 0 auto !important;
+        padding: 0 15% 0 1% !important;
+    }
+
 }
 
 @media screen and (max-width: 1270)  {
 	.edit-row i{
 		text-align: right !important;
 	}
-
-	.text-left{
-		text-align: center !important;
-		margin: 0 auto !important
-
-	}
 	
-	.text-right{
-		text-align: center !important;
-		margin: 0 auto !important
-
-	}
 }
+
+
 
 @media screen and (max-width: 993)  {
 	.edit-row i{
 		text-align: right !important;
 	}
-	.text-left{
-		text-align: center !important;
-		margin: 0 auto !important
 
-	}
-	
-	.text-right{
-		text-align: center !important;
-		margin: 0 auto !important
-
-	}
 }
 
 @media screen and (max-width: 769px)  {
@@ -580,18 +563,57 @@ margin-bottom: 0px;
 		margin-left: -40px;
 	}
 
-	.text-left{
+	.welcomeh1{
+		font-size: 18pt !important;
+	}
+
+	.container-fluid{
+        margin: auto !important;
+        padding: 0 1% 0 8% !important;
+	}
+
+	#passrequire{
+		margin-bottom: 0px;
+	}
+
+	
+	.register-div{
+		margin:0px auto 5px auto !important;
+	}
+
+	.login-div{
+		margin:0px auto 5px auto !important;
+	}
+
+	.holder-div{
+		padding: 5px 0 5px 0 !important;
+		margin: 15px auto 15px auto !important;
+	}
+
+	.admin-btn-normal-up{
 		text-align: center !important;
-		margin: 0 auto !important
+		margin: 0 auto !important;
 
 	}
 	
-	.text-right{
+	.admin-btn-remove-up{
 		text-align: center !important;
-		margin: 0 auto !important
-
+		margin: 0 auto !important;
 	}
+
 }
 @media screen and (max-width: 420)  {
+    .container-fluid{
+		padding: 0 0px 0 25px !important;
+    }
+    .container{
+        padding-right: 10px;
+        padding-left: 15px;
+    }
+    .pl-5,.pr-5, .px-5{
+        padding-left: 2.6rem !important;
+        padding-right: 2.6rem !important;
+    }
+
 
 }

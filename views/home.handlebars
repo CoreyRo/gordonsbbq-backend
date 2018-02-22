@@ -1,6 +1,5 @@
-
 <div class="home-div">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-10 mx-auto text-center">
                 <div class="row ">
@@ -10,9 +9,54 @@
                     <div class="col-12 text-center">
                         {{>errors }}
                         <img src="../imgs/gbbqr3.png" alt="logo" class='img-fluid homeimg'>
-                    </div>                                   
+                    </div>
                 </div>
+                {{!-- <div class="row text-center">
+                    <div class="col-md-4 mx-auto ">
+                        <div class="card" style="width: 100%;">
+                            <div class="card-body">
+                                <div class="row mx-auto text-center">
+                                    <h4 class="card-title  mx-auto text-center">
+                                        <i class="fas fa-user"></i>
+                                        <strong>{{user.username}}</strong>
+                                    </h4>
+                                </div>
+                                <hr>
+
+                                <div class="row mx-auto text-center">
+                                    <strong id='this-user-info' class="text-center">
+                                        <p>
+                                            <i class="fas fa-calendar-alt"></i> User information</p>
+                                    </strong>
+                                </div>
+                                <div class="row mx-auto text-left">
+                                    <small>
+                                        <ul class='this-user-list'>
+                                            <li>
+                                                <p>
+                                                    <i class="fas fa-tag"></i> {{user.firstName}} {{user.lastName}}</p>
+                                            </li>
+                                            <li>
+                                                <p>
+                                                    <i class="fas fa-envelope"></i> {{user.email}}</p>
+                                            </li>
+                                            {{#if user.isAdmin}}
+                                            <li>
+                                                <p>
+                                                    <i class="fas fa-shield-alt"></i> Admin Role</p>
+                                            </li>{{/if }} {{#unless user.isAdmin}}
+                                            <li>
+                                                <p>
+                                                    <i class="far fa-user-circle"></i> Basic Role</p>
+                                            </li>{{/unless }}
+                                        </ul>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
             </div>
         </div>
     </div>
-</div>   
+</div>

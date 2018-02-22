@@ -13,7 +13,7 @@ $(document)
                     .on('shown.bs.collapse', function () {
                         $('.main')
                             .removeClass('dumped')
-                            .addClass('col-lg-10 float-left col px-5 pl-md-2 pt-2 main')
+                            .addClass('col-lg-10 float-right col px-5 pl-md-2 pt-2 main')
                     })
             } else {
                 $('#sidebar')
@@ -91,4 +91,7 @@ $(document)
                     return this;
                 }
             });
+
+
+
     })

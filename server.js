@@ -103,6 +103,14 @@ var hbs = exphbs.create({
                 return `<div style="text-align:left;"><form method="GET" action=/${type}/getpages/${page + 1}><button id="nextBtn" type="submit" class="btn btn-primary btn-sm">NEXT</button></form></div>`
             }
 
+        },
+        active: function(page, nav, options){
+
+            if(page === nav){
+                console.log('page', page)
+                console.log('nav', nav)
+                return 'active-link'
+            }
         }
     }
 });

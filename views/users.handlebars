@@ -1,9 +1,9 @@
 <div class="container-fluid">
-    <div class="users-div">
-                    <div class="header-div">
-                    <h1>{{title}}</h1>
-                    {{>errors }}
-    </div>
+    <div class="holder-div users-div">
+        <div class="header-div">
+            <h1>{{title}}</h1>
+            {{>errors }}
+        </div>
         {{#if users.docs}} {{#each users.docs}}
         <div class="row">
             <div class="card" style="width: 100%;">
@@ -30,7 +30,8 @@
                                         <button id="open-{{this._id}}" type="submit" class="icon-button">
                                             <i class="fas m-1 fa-edit fa-lg"></i>
                                         </button>
-                                        <button id="remove-{{this._id}}" class='delete-btn icon-button' data-toggle="modal" data-target="#deletemodaluser{{this._id}}" type="submit">
+                                        <button id="remove-{{this._id}}" class='delete-btn icon-button' data-toggle="modal" data-target="#deletemodaluser{{this._id}}"
+                                            type="submit">
                                             <i class="fas m-1 fa-trash fa-lg"></i>
                                         </button>
                                     </form>
@@ -62,7 +63,7 @@
                     </ul>
                 </div>
             </div>
-        {{>userAlert this}}
+            {{>userAlert this}}
         </div>
         {{/each }}
         <div class="page-row">
@@ -86,4 +87,4 @@
 {{/if}} {{#unless users}}
 </div>
 </div>
-{{/unless}} 
+{{/unless}}

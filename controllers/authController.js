@@ -344,7 +344,8 @@ module.exports = {
                         subTitle: 'Create a new password',
                         token: req.params.token,
                         valErrors: errors.mapped(),
-                        user: req.user
+                        user: req.user,
+                        href: 'change-password'
                     }))
                 }
                 done()
@@ -397,7 +398,9 @@ module.exports = {
                     res.render('user', {
                         title: "The user database is empty",
                         subTitle: 'Click "Create a new user post" to start',
-                        username: req.user.username
+                        username: req.user.username,
+                        user: req.user,
+                        href: 'manage-users'
                     })
                 } else {
                     res.render('user', {
@@ -405,7 +408,8 @@ module.exports = {
                         title: 'User Accounts Page ' + dbModel.page + ' of ' + dbModel.pages,
                         username: req.user.username,
                         user: req.user,
-                        type: 'users'
+                        type: 'users',
+                        href: 'manage-users'
                     })
                 }
             })
@@ -429,6 +433,7 @@ module.exports = {
                         valErrors: errors.mapped(),
                         user: req.user,
                         users: req.body,
+                        href: 'manage-users'
                     }))
                 }
                 done()
@@ -484,7 +489,8 @@ module.exports = {
                     pageTitle: "Gordons BBQ - Update User",
                     subTitle: 'Update user information',
                     username: req.user.username,
-                    user: req.user
+                    user: req.user,
+                    href: 'manage-users'
                 })
             })
             .catch(function (err) {

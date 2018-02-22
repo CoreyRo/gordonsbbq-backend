@@ -51,7 +51,9 @@ module.exports = {
                     res.render('blog', {
                         title: "The blog database is empty",
                         subTitle: 'Click "Create a new blog post" to start',
-                        username: req.user.username
+                        username: req.user.username,
+                        user: req.user,
+                        href: 'blog'
                     })
                 } else {
                     res.render('blog', {
@@ -59,7 +61,8 @@ module.exports = {
                         title: 'Blog Entries Page ' + dbModel.page + ' of ' + dbModel.pages,
                         username: req.user.username,
                         user: req.user,
-                        type: 'blog'
+                        type: 'blog',
+                        href: 'blog'
                     })
                 }
 
@@ -95,7 +98,8 @@ module.exports = {
                     title: "Update Blog Post",
                     pageTitle: "Gordons BBQ - Update Post",
                     username: req.user.username,
-                    user: req.user
+                    user: req.user,
+                    href: 'blog'
 
                 })
             })

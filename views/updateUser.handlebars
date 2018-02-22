@@ -1,11 +1,13 @@
-<div>
-    <div class="container">
+<div class="holder-div">
+    <div class="container-fluid">
+        <div class="header-div">
+            <h1>{{title}}</h1>
+            {{>errors }}
+        </div>
         <div class="row">
+
             <div class="register-div">
-                <div class="header-div">
-                    <h1>{{title}}</h1>
-                    {{>errors }}
-                </div>
+
                 <div class="row">
                     <div class="col-md-12">
                         <form id='regForm' method='POST' action='/users/update/{{users._id}}?_method=PUT'>

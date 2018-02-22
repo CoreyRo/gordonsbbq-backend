@@ -51,45 +51,45 @@
 			<div class="col-lg-2 float-left col-1 pl-0 pr-0 collapse width show" id="sidebar">
 				<div class="list-group border-0 card text-center text-md-left">
                     {{#if username}}
-                    <a class='list-group-item d-inline-block collapsed' href="/home">
-                        <li class="active">
+                    <a class='list-group-item {{active href "home"}} d-inline-block collapsed' href="/home">
+                        <li class="">
                             <i class="fa fa-home fa-lg "></i> <span class="d-none d-md-inline">Home
                             </span>
                         </li>
                     </a>
-                    <a class='list-group-item d-inline-block collapsed' href="/blog">
+                    <a class='list-group-item {{active href "blog"}} d-inline-block collapsed' href="/blog">
                         <li class=" li-text">
                             <i class="fa fa-database fa-lg "></i> <span class="d-none d-md-inline">Blog Entries
                             </span>
                         </li>
                     </a>
                     </a>
-                    <a class='list-group-item d-inline-block collapsed' href="/newpost">
+                    <a class='list-group-item {{active href "newpost"}} d-inline-block collapsed' href="/newpost">
                         <li class=" li-text">
                             <i class="fa fa-plus-square fa-lg "></i> <span class="d-none d-md-inline">Create New Blog Entry
                             </span>
                         </li>
                     </a>
-                    <a class='list-group-item d-inline-block collapsed' href="/edit-profile">
+                    <a class='list-group-item {{active href "edit-profile"}} d-inline-block collapsed' href="/edit-profile">
                         <li class=" li-text">
                             <i class="fa fa-user fa-lg "></i> <span class="d-none d-md-inline">Edit Profile
                             </span>
                         </li>
                     </a>
-                    <a class='list-group-item d-inline-block collapsed' href="/change-password">
+                    <a class='list-group-item {{active href "change-password"}} d-inline-block collapsed' href="/change-password">
                         <li class=" li-text">
                             <i class="fa fa-cog fa-lg "></i> <span class="d-none d-md-inline">Change Password
                             </span>
                         </li>
                     </a>
                     {{#if user.isAdmin}}
-                    <a class='list-group-item d-inline-block collapsed' href="/register">
+                    <a class='list-group-item {{active href "register"}} d-inline-block collapsed' href="/register">
                         <li class=" li-text">
                             <i class="fa fa-user-plus fa-lg "></i> <span class="d-none d-md-inline">Register New User
                             </span>
                         </li>
                     </a>
-                    <a class='list-group-item d-inline-block collapsed' href="/manage-users">
+                    <a class='list-group-item {{active href "manage-users"}} d-inline-block collapsed' href="/manage-users">
                         <li class=" li-text">
                             <i class="fa fa-users fa-lg "></i> <span class="d-none d-md-inline">Manage Users
                             </span>
@@ -105,7 +105,7 @@
                     {{/if}}
 				</div>
 			</div>
-			<main class="col-lg-10 float-left col px-5 pl-md-2 pt-2 main" data-bucket='empty'>
+			<main class="col-lg-10 float-right col px-5 pl-md-2 pt-2 main" data-bucket='empty'>
                 {{{body}}}
 			</main>
 		</div>

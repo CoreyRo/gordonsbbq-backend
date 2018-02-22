@@ -1,61 +1,55 @@
-<div class="new-blog">
-<div class="container-fluid">
-                    <div class="header-div">
-                    <h1>{{title}}</h1>
-                    {{>errors }}
+<div class="holder-div new-blog">
+    <div class="container-fluid">
+        <div class="header-div">
+            <h1>{{title}}</h1>
+            {{>errors }}
+        </div>
+        {{#if blog}} {{#everyNth blog.docs 3}} {{#if isModZeroNotFirst}}
     </div>
-    {{#if blog}}
-        {{#everyNth blog.docs 3}}
-            {{#if isModZeroNotFirst}}
-                </div>
-            {{/if}}
-            {{#if isModZero}}
-                <div class="row card-deck">
-            {{/if}}
-            <div class="col-lg-4">     
-                <div class="card blog-card">
-                    <div class="row edit-row ml-auto">
-                        <div class="col-lg-12 text-right">
-                            <form method="GET" action='/api/blog/getone/{{this._id}}'>
-                                <button id="open-{{this._id}}" type="submit" class="icon-button"><i class="fas m-1 fa-edit fa-lg"></i></button>
-                            </form>
-                        </div>
-                    </div> 
-                    <img class="card-img-top img-fluid" src="/imgs/{{this.img}}" alt="{{this.img}}" id="{{img}}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{this.title}}</h5>
-                        <p class="card-text"></p>{{{this.text}}}</p>
-                    </div>
-                    <div class="card-footer">
-                        <p class="text-muted">{{this.updatedAt}}</p>
+    {{/if}} {{#if isModZero}}
+    <div class="row card-deck">
+        {{/if}}
+        <div class="col-lg-4">
+            <div class="card blog-card">
+                <div class="row edit-row ml-auto">
+                    <div class="col-lg-12 text-right">
+                        <form method="GET" action='/api/blog/getone/{{this._id}}'>
+                            <button id="open-{{this._id}}" type="submit" class="icon-button">
+                                <i class="fas m-1 fa-edit fa-lg"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
-            </div>
-            {{#if isLast}}
+                <img class="card-img-top img-fluid" src="/imgs/{{this.img}}" alt="{{this.img}}" id="{{img}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.title}}</h5>
+                    <p class="card-text"></p>{{{this.text}}}</p>
                 </div>
-            {{/if}}
-        {{/everyNth}}
-        <div class="page-row">
-            <div class="container">
-                <div class="row">
-                    <div class="col-6">
-                        {{#showPrev blog.page blog.pages type}}
-                        {{/showPrev}}
-                    </div>
-                    <div class="col-6">
-                        {{#showNext blog.page blog.pages type}}
-                        {{/showNext}}
-                    </div>
+                <div class="card-footer">
+                    <p class="text-muted">{{this.updatedAt}}</p>
                 </div>
-                <div class="text-center">
-                    <p>Page {{blog.page}} of {{blog.pages}}</p>
-                </div>
-            </div>
             </div>
         </div>
-    {{/if}}
+        {{#if isLast}}
+    </div>
+    {{/if}} {{/everyNth}}
+    <div class="page-row">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    {{#showPrev blog.page blog.pages type}} {{/showPrev}}
+                </div>
+                <div class="col-6">
+                    {{#showNext blog.page blog.pages type}} {{/showNext}}
+                </div>
+            </div>
+            <div class="text-center">
+                <p>Page {{blog.page}} of {{blog.pages}}</p>
+            </div>
+        </div>
     </div>
 </div>
+{{/if}}
+</div>
+</div>
 {{> alert}}
-
-   
