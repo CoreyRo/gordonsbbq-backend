@@ -6,6 +6,7 @@ let date = new Date();
 const blogSchema = new Schema({
   title: { type: String, required: true },
   text: { type: String, required: true },
+  richText:{ type: String },
   img: { type: String},
 },{
   timestamps: true

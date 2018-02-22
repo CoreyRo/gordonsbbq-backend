@@ -113,6 +113,44 @@ module.exports = function (router) {
         }
     })
 
+    //rte route
+    router.get('/rte-post', function (req, res, next) {
+        if (req.isAuthenticated()) {
+            res.render('rte', {
+                user: req.user.username,
+                title: "Create New Blog Entry",
+                pageTitle: "Gordon's BBQ - New Blog Entry",
+                username: req.user.username,
+                user: req.user,
+                href: 'rte-post'
+            })
+        } else {
+            res.render('login', {
+                title: "Gordon's BBQ",
+                errors: [{
+                    alertType: 'danger',
+                    alertIcon: 'fas fa-exclamation-triangle',
+                    msg: 'You must be logged in to view this page'
+                }],
+                pageTitle: "Login"
+            })
+        }
+    })
+
+        //rte route
+        router.post('/rte-post', function (req, res, next) {
+            console.log('req', req.body)
+            res.render('rte', {
+                user: req.user.username,
+                title: "Create New Blog Entry",
+                pageTitle: "Gordon's BBQ - New Blog Entry",
+                username: req.user.username,
+                user: req.user,
+                href: 'rte-post',
+                text: req.body.editordata
+            })
+        })
+
     //edit profile route
     router.get('/edit-profile', function (req, res, next) {
         if (req.isAuthenticated()) {

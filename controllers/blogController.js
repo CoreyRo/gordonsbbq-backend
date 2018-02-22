@@ -5,7 +5,6 @@ const nl2br = require('nl2br');
 
 module.exports = {
     create: function (req, res) {
-
         let form = new formidable.IncomingForm();
         form.parse(req, function (err, fields, files) {
             db
@@ -154,5 +153,47 @@ module.exports = {
                 req.flash('error', 'There was an error deleting the post.')
                 res.redirect('/blog')
             })
-    }
+    },
+
+    imageUpload: function (req, res) {
+        let form = new formidable.IncomingForm();
+        form.parse(req, function (err, fields, files) {
+
+            let url = {}
+            url.name = files.file.name
+            url.url = `../imgs/${files.file.name}`
+            console.log('files',url)
+            res.send(url)
+            // db
+            //     .Blog
+            //     .create({
+            //         title: fields.title,
+            //         text: fields.text,
+            //         img: files.imageURL.name || fields.default_imageURL
+            //     })
+            //     .then(function (dbModel) {
+            //         req.flash('success', 'Your blog post was successfully created.')
+            //         res.redirect('/home')
+            //     })
+            //     .catch(function (err) {
+            //         req.flash('error', 'There was an error creating your post.')
+            //         res.redirect('/home')
+            //     })
+        })
+
+        form.on('fileBegin', function (name, file) {
+            if (file.name) {
+                file.path = path.basename(path.dirname('../')) + '/public/imgs/' + file.name;
+            }
+            else{
+                return console.log('No new image uploaded')
+            }
+
+        });
+
+        form.on('end', function (res) {
+            console.log('Thanks File Uploaded');
+        });
+
+    },
 }

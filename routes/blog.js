@@ -27,5 +27,9 @@ module.exports = function(router){
 	router
 		.route('/api/blog/destroy/:id')
 		.delete(blog.destroy)
+	
+	router
+		.route('/imageupload')
+		.post(blog.imageUpload)
 
 }

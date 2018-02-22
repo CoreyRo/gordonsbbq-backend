@@ -1,0 +1,26 @@
+
+
+<div class="home-div">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-10">
+                <div class="row mx-auto text-center">
+                    <h1 class="welcomeh1">Welcome your blog control interface</h1>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <form method="POST" action='/rte-post'>
+                            <textarea id="summernote" name="editordata"></textarea>
+                            <button type="submit" id='sendrte' class='btn btn-sm btn-primary'>Submit</button>
+                            <button id='checkrte' type="submit" class='btn btn-sm btn-success'>Submit</button>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    {{{text}}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

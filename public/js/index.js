@@ -1,5 +1,44 @@
 $(document)
     .ready(function ($) {
+
+        $('#summernote').summernote({
+            tabsize: 2,
+            height: 800,
+            callbacks:{
+                onImageUpload: function(files) {
+                    console.log("files", files)
+                    sendFile(files[0]);
+                }
+            }
+        })
+        function sendFile(file) {
+            data = new FormData();
+            data.append("file", file);
+            $.ajax({
+                data: data,
+                type: "POST",
+                url: '/imageupload',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(url) {
+                    console.log('url', url)
+                    let imgNode = $('<img>').attr('src',url.url).attr('name', url.name)
+                    console.log(imgNode)
+                    $('#summernote').summernote('insertNode', imgNode[0]);
+                }
+            });
+            
+        }
+        
+
+        $('#checkrte').on('click', function(e){
+            e.preventDefault()
+            console.log($('#summernote').summernote('code'))
+        })
+
+
+
         let text = $('#current_text').val()
         $('#text').html(text)
         $('.delete-btn').on('click', function (e) {
@@ -84,14 +123,13 @@ $(document)
                         .one(animationEnd, function () {
                             $(this).removeClass('animated ' + animationName);
 
-                            if (typeof callback === 'function')
+                            if (typeof callback === 'function') 
                                 callback();
-                        });
+                            }
+                        );
 
                     return this;
                 }
             });
-
-
 
     })
