@@ -5,10 +5,8 @@
             {{>errors }}
         </div>
         <div class="row">
-            <div class="register-div">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form id='regForm' method='POST' action='/auth/create'>
+
+                        <form class='regForm' method='POST' action='/auth/create'>
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <label for="firstName">First Name</label>
@@ -50,33 +48,34 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" name='password' aria-describedby="passrequire" placeholder="Enter password">
-                                    <small id="passrequire" class="form-text text-muted">
-                                        <a class='modal-a' data-toggle="modal" data-target="#passreqs">Password Requirements</a>
-                                    </small>
+                                    <input type="password" class="form-control" id="password" name='password' placeholder="Enter password">
+
                                 </div>
                                 <div class="col-md-6">
                                     <label for="confirmPass">Confirm Password</label>
                                     <input type="password" class="form-control" id="confirmPass" name='confirmPass' placeholder="Confirm password">
                                 </div>
                             </div>
-                            <hr>
                             <div class="form-row">
-                                <div class="col text-right">
-                                    <button id='regClear' type='reset' class="btn btn-danger clearForm reg-button">Clear</button>
+                                <div class="row text-center mx-auto">
+                                    <div class="col text-right">
+                                        <button id='regClear' type='reset' class="btn btn-danger clearForm reg-button">Clear</button>
+                                    </div>
+                                    <div class="col text-left">
+                                        <button type="submit" class="btn btn-primary reg-button">Submit</button>
+                                    </div>
                                 </div>
-                                <div class="col text-left">
-                                    <button type="submit" class="btn btn-primary reg-button">Submit</button>
+                                <div class="btn-row row text-center mx-auto">
+                                    <small id="passrequire" class="mx-auto text-center">
+                                        <a class='modal-a' data-toggle="modal" data-target="#passreqs">Password Requirements</a>
+                                    </small>
                                 </div>
                             </div>
                         </form>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>

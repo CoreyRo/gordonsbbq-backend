@@ -104,13 +104,14 @@ var hbs = exphbs.create({
             }
 
         },
-        active: function(page, nav, options){
-
-            if(page === nav){
-                console.log('page', page)
-                console.log('nav', nav)
+        active: function (page, nav, options) {
+            if (page === nav) {
                 return 'active-link'
             }
+        },
+        editBlog: function (x, options) {
+
+
         }
     }
 });
@@ -137,7 +138,7 @@ app.use(session({
     unset: 'destroy',
     saveUninitialized: false,
     store: new MongoStore({
-        mongooseConnection: mongoose.connection, autoRemove: 'interval', autoRemoveInterval: 20 // In minutes. Default
+        mongooseConnection: mongoose.connection, 
     }),
     // cookie: { 	}
 }))
@@ -146,18 +147,30 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(function (req, res, next) {
     res.locals.isAuthenticated = req.isAuthenticated();
-    res.locals.currentUser = req.user;
+    console.log('auth', req.isAuthenticated())
     res.locals.flash = req.session.flash;
     delete req.session.flash;
     next()
 });
 
+app.get('/logout', function(req, res, next) {
+    // Get rid of the session token. Then call `logout`; it does no harm.
+    req.session.destroy(function (err) {
+      if (err) { return next(err); }
+      req.logout();
+      delete req.user
+      // The response should indicate that the user is no longer authenticated.
+      res.status(302).redirect('/')
+    })
+})
 //routes
 
 require("./routes/html.js")(app);
 require("./routes/blog.js")(app);
 require('./passport/config.js')(passport, db.User);
 var authRoute = require('./auth/auth.js')(app, passport);
+
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

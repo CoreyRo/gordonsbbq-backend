@@ -4,15 +4,16 @@ module.exports = function (router) {
 
     router
         .get('/', function (req, res, next) {
-            if (req.isAuthenticated()) {
-                res.redirect('/home')
-            } else {
+            if (!req.isAuthenticated()) {
                 res.render('login', {
                     title: "Gordon's BBQ",
-                    subTitle: 'Admin Access Level',
+                    subTitle: 'Login to your account',
                     pageTitle: "Login",
-                    error: req.flash('error')
+                    error: req.flash('error'),
+                    href: 'login'
                 })
+            } else {
+                res.redirect('/home')
             }
         })
 
@@ -29,11 +30,13 @@ module.exports = function (router) {
         } else {
             res.render('login', {
                 title: "Gordon's BBQ",
-                errors: [{
-                    alertType: 'danger',
-                    alertIcon: 'fas fa-exclamation-triangle',
-                    msg: 'You must be logged in to view this page'
-                }],
+                errors: [
+                    {
+                        alertType: 'danger',
+                        alertIcon: 'fas fa-exclamation-triangle',
+                        msg: 'You must be logged in to view this page'
+                    }
+                ],
                 pageTitle: "Login"
             })
         }
@@ -46,14 +49,12 @@ module.exports = function (router) {
                 .Blog
                 .paginate({}, {
                     page: 1,
-                    limit: 3,
-                    sort: ({
-                        updatedAt: -1
-                    })
+                    limit: 6,
+                    sort: ({updatedAt: -1})
                 })
                 .then(function (dbModel) {
                     if (dbModel.docs.length <= 0) {
-                        res.render('blog', {
+                        res.render('bloglist', {
                             title: "Blog Database is Empty",
                             subTitle: 'Click "Create a new blog post" to start',
                             username: req.user.username,
@@ -61,7 +62,7 @@ module.exports = function (router) {
                             href: 'blog'
                         })
                     } else {
-                        res.render('blog', {
+                        res.render('bloglist', {
                             blog: dbModel,
                             username: req.user.username,
                             title: 'Blog Entries Page ' + dbModel.page + ' of ' + dbModel.pages,
@@ -79,11 +80,13 @@ module.exports = function (router) {
         } else {
             res.render('login', {
                 title: "Gordon's BBQ",
-                errors: [{
-                    alertType: 'danger',
-                    alertIcon: 'fas fa-exclamation-triangle',
-                    msg: 'You must be logged in to view this page'
-                }],
+                errors: [
+                    {
+                        alertType: 'danger',
+                        alertIcon: 'fas fa-exclamation-triangle',
+                        msg: 'You must be logged in to view this page'
+                    }
+                ],
                 pageTitle: "Login"
             })
         }
@@ -103,11 +106,13 @@ module.exports = function (router) {
         } else {
             res.render('login', {
                 title: "Gordon's BBQ",
-                errors: [{
-                    alertType: 'danger',
-                    alertIcon: 'fas fa-exclamation-triangle',
-                    msg: 'You must be logged in to view this page'
-                }],
+                errors: [
+                    {
+                        alertType: 'danger',
+                        alertIcon: 'fas fa-exclamation-triangle',
+                        msg: 'You must be logged in to view this page'
+                    }
+                ],
                 pageTitle: "Login"
             })
         }
@@ -127,29 +132,17 @@ module.exports = function (router) {
         } else {
             res.render('login', {
                 title: "Gordon's BBQ",
-                errors: [{
-                    alertType: 'danger',
-                    alertIcon: 'fas fa-exclamation-triangle',
-                    msg: 'You must be logged in to view this page'
-                }],
+                errors: [
+                    {
+                        alertType: 'danger',
+                        alertIcon: 'fas fa-exclamation-triangle',
+                        msg: 'You must be logged in to view this page'
+                    }
+                ],
                 pageTitle: "Login"
             })
         }
     })
-
-        //rte route
-        router.post('/rte-post', function (req, res, next) {
-            console.log('req', req.body)
-            res.render('rte', {
-                user: req.user.username,
-                title: "Create New Blog Entry",
-                pageTitle: "Gordon's BBQ - New Blog Entry",
-                username: req.user.username,
-                user: req.user,
-                href: 'rte-post',
-                text: req.body.editordata
-            })
-        })
 
     //edit profile route
     router.get('/edit-profile', function (req, res, next) {
@@ -166,11 +159,13 @@ module.exports = function (router) {
         } else {
             res.render('login', {
                 title: "Gordon's BBQ",
-                errors: [{
-                    alertType: 'danger',
-                    alertIcon: 'fas fa-exclamation-triangle',
-                    msg: 'You must be logged in to view this page'
-                }],
+                errors: [
+                    {
+                        alertType: 'danger',
+                        alertIcon: 'fas fa-exclamation-triangle',
+                        msg: 'You must be logged in to view this page'
+                    }
+                ],
                 pageTitle: "Login"
             })
         }
@@ -191,11 +186,13 @@ module.exports = function (router) {
         } else {
             res.render('login', {
                 title: "Gordon's BBQ",
-                errors: [{
-                    alertType: 'danger',
-                    alertIcon: 'fas fa-exclamation-triangle',
-                    msg: 'You must be logged in to view this page'
-                }],
+                errors: [
+                    {
+                        alertType: 'danger',
+                        alertIcon: 'fas fa-exclamation-triangle',
+                        msg: 'You must be logged in to view this page'
+                    }
+                ],
                 pageTitle: "Login"
             })
         }
@@ -215,11 +212,13 @@ module.exports = function (router) {
         } else {
             res.render('login', {
                 title: "Gordon's BBQ",
-                errors: [{
-                    alertType: 'danger',
-                    alertIcon: 'fas fa-exclamation-triangle',
-                    msg: 'You must be logged in to view this page'
-                }],
+                errors: [
+                    {
+                        alertType: 'danger',
+                        alertIcon: 'fas fa-exclamation-triangle',
+                        msg: 'You must be logged in to view this page'
+                    }
+                ],
                 pageTitle: "Login"
             })
         }
@@ -228,13 +227,12 @@ module.exports = function (router) {
     //manage users route
     router.get('/manage-users', function (req, res, next) {
         if (req.isAuthenticated()) {
-            db.User
+            db
+                .User
                 .paginate({}, {
                     page: 1,
                     limit: 3,
-                    sort: ({
-                        updatedAt: -1
-                    }),
+                    sort: ({updatedAt: -1})
                 })
                 .then(function (dbModel) {
                     if (dbModel.docs.length <= 0) {
@@ -243,7 +241,7 @@ module.exports = function (router) {
                             subTitle: 'Click "Create a new user post" to start',
                             username: req.user.username,
                             user: req.user,
-                            href: 'manage-users',
+                            href: 'manage-users'
                         })
                     } else {
                         res.render('users', {
@@ -263,11 +261,13 @@ module.exports = function (router) {
         } else {
             res.render('login', {
                 title: "Gordon's BBQ",
-                errors: [{
-                    alertType: 'danger',
-                    alertIcon: 'fas fa-exclamation-triangle',
-                    msg: 'You must be logged in to view this page'
-                }],
+                errors: [
+                    {
+                        alertType: 'danger',
+                        alertIcon: 'fas fa-exclamation-triangle',
+                        msg: 'You must be logged in to view this page'
+                    }
+                ],
                 pageTitle: "Login"
             })
         }
@@ -279,7 +279,8 @@ module.exports = function (router) {
         (res.render('forgot', {
             title: 'Forgot Password',
             pageTitle: "Forgot Password",
-            subTitle: 'Enter the email address for your account'
+            subTitle: 'Enter the email address for your account',
+            href: 'forgot'
         }))
 
     })
@@ -292,9 +293,5 @@ module.exports = function (router) {
             next()
         }
     })
-
-
-
-
 
 }

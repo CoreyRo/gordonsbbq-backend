@@ -514,6 +514,6 @@ module.exports = {
                 req.flash('error', 'There was an error removing the account: ' + err)
                 res.redirect('/manage-users')
             })
-    }
+    },
 
 }

@@ -1,0 +1,37 @@
+<div class="holder-div new-blog">
+    <div class="container-fluid">
+        <div class="header-div">
+            <h1>{{title}}</h1>
+            {{>errors }}
+        </div>
+        <div class="row">
+            <form method="POST" action='/api/blog/edit/{{blog._id}}?_method=PUT' id='rteform'>
+                <div class="form-group">
+                    <label for="title">Blog title</label>
+                    <input type="text" class="form-control" id="title" name="title" value='{{blog.title}}' placeholder="My new blog title" required>
+                </div>
+                <textarea id="summernote" name="editordata"></textarea>
+                <button type="submit" id='sendrte' class='btn btn-sm btn-primary'>Submit</button>
+                <button id='checkrte' type="submit" class='btn btn-sm btn-success' disabled>Save</button>
+            </form>
+        </div>
+        <div class="row">
+            {{{text}}}
+        </div>
+        <input id='blogId' value='{{blog._id}}' hidden>
+    </div>
+</div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        let id = $('#blogId').val()
+        axios.get('/json/blog/getone/'+id)
+        .then(res => {
+            let data = res.data.richText
+            $('#summernote').summernote('code', data)
+
+        })
+
+    });
+
+</script>

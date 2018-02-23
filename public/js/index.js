@@ -1,16 +1,67 @@
 $(document)
     .ready(function ($) {
 
-        $('#summernote').summernote({
-            tabsize: 2,
-            height: 800,
-            callbacks:{
-                onImageUpload: function(files) {
-                    console.log("files", files)
-                    sendFile(files[0]);
+        $(window)
+            .width(function () {
+                if ($(window).width() < 1025) {
+                    $('.main')
+                        .removeClass('col-10 ml-auto')
+                        .addClass('col-11 mx-auto')
+                } else {
+                    $('.main').removeClass('col-11 mx-auto')
+                    if (!$('.main').hasClass('col-10')) {
+                        $('.main').addClass('col-10 ml-auto');
+                    }
+                }
+            })
+
+        $(window).resize(function () {
+            if ($(window).width() < 1025) {
+                $('.main')
+                    .removeClass('col-10 ml-auto')
+                    .addClass('col-11 mx-auto')
+            } else {
+                $('.main').removeClass('col-11 mx-auto')
+                if (!$('.main').hasClass('col-10')) {
+                    $('.main').addClass('col-10 ml-auto');
                 }
             }
+        });
+
+        $('#summernote').summernote({
+            tabsize: 2,
+            height: 400,
+            callbacks: {
+                onImageUpload: function (files) {
+                    sendFile(files[0]);
+                },
+                onMediaDelete: function (target) {
+                    deleteFile(target[0].src);
+                },
+                onPaste: function(e) {
+                },
+                onChange: function (contents, $editable) {
+                    $('#summernote').val(contents)
+                }
+            },
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['picture']
+            ],
+
         })
+
+        $('#summernote').each(function () {
+            if ($(this).data('validator'))
+                $(this).data('validator').settings.ignore = ".note-editor *";
+        });
+
         function sendFile(file) {
             data = new FormData();
             data.append("file", file);
@@ -21,49 +72,67 @@ $(document)
                 cache: false,
                 contentType: false,
                 processData: false,
-                success: function(url) {
-                    console.log('url', url)
-                    let imgNode = $('<img>').attr('src',url.url).attr('name', url.name)
-                    console.log(imgNode)
-                    $('#summernote').summernote('insertNode', imgNode[0]);
+                success: function (url) {
+                    let imgNode = $('<img>')
+                        .attr('src', url.url)
+                        .attr('name', url.name)
+                    return $('#summernote').summernote('insertNode', imgNode[0]);
                 }
             });
-            
         }
-        
 
-        $('#checkrte').on('click', function(e){
-            e.preventDefault()
-            console.log($('#summernote').summernote('code'))
-        })
+        function deleteFile(file) {
+            data = new FormData();
+            data.append("file", file);
+            $.ajax({
+                data: data,
+                type: "POST",
+                url: '/imageDelete',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (resp) {
+                   return console.log('deleted')
+                }
+            });
 
+        }
 
+        $('#checkrte')
+            .on('click', function (e) {
+                e.preventDefault()
+            })
 
         let text = $('#current_text').val()
         $('#text').html(text)
         $('.delete-btn').on('click', function (e) {
             e.preventDefault()
         })
+
         $('[data-toggle="collapse"]').on('click', function () {
-
             if ($('.main').hasClass('dumped')) {
-
                 $('#sidebar')
                     .on('shown.bs.collapse', function () {
+                        $('.container-fluid').attr('style', '')
+
                         $('.main')
-                            .removeClass('dumped')
-                            .addClass('col-lg-10 float-right col px-5 pl-md-2 pt-2 main')
+                            .removeClass('main col-12 dumped')
+                            .addClass('ml-auto col-10 main')
+
                     })
             } else {
                 $('#sidebar')
-                    .on('hide.bs.collapse', function () {
+                    .on('hidden.bs.collapse', function () {
                         $('.main')
-                            .removeClass()
-                            .addClass('main dumped px-5')
+                            .removeClass('col-10 ml-auto')
+                            .addClass('main col-12 dumped')
+                        $('.container-fluid').attr('style', 'padding: 1% 1% 0 4% !important;')
+
                     })
             }
 
         });
+
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
             $(".side-nav .collapse").on("hide.bs.collapse", function () {
@@ -123,10 +192,9 @@ $(document)
                         .one(animationEnd, function () {
                             $(this).removeClass('animated ' + animationName);
 
-                            if (typeof callback === 'function') 
+                            if (typeof callback === 'function')
                                 callback();
-                            }
-                        );
+                        });
 
                     return this;
                 }

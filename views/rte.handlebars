@@ -1,26 +1,23 @@
-
-
-<div class="home-div">
+<div class="holder-div new-blog">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-10">
-                <div class="row mx-auto text-center">
-                    <h1 class="welcomeh1">Welcome your blog control interface</h1>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <form method="POST" action='/rte-post'>
-                            <textarea id="summernote" name="editordata"></textarea>
-                            <button type="submit" id='sendrte' class='btn btn-sm btn-primary'>Submit</button>
-                            <button id='checkrte' type="submit" class='btn btn-sm btn-success'>Submit</button>
+        <div class="header-div">
+            <h1>{{title}}</h1>
+            {{>errors }}
+        </div>
 
-                        </form>
-                    </div>
+        <div class="row">
+            <form method="POST" action='/rte-post' id='rteform'>
+                <div class="form-group">
+                    <label for="title">Blog title</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="My new blog title" required>
                 </div>
-                <div class="row">
-                    {{{text}}}
-                </div>
-            </div>
+                <textarea id="summernote" name="editordata"></textarea>
+                <button type="submit" id='sendrte' class='btn btn-sm btn-primary'>Submit</button>
+                <button id='checkrte' type="submit" class='btn btn-sm btn-success'>Submit</button>
+            </form>
+        </div>
+        <div class="row">
+            {{{text}}}
         </div>
     </div>
 </div>

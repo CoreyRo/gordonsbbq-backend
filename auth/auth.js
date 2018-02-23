@@ -34,18 +34,11 @@ module.exports = function (router, passport) {
         ], auth.registerUser)
 
     router.post('/login', passport.authenticate('local-signin', {
-        successRedirect: '/home',
+        successRedirect: '/',
         failureRedirect: '/',
         failureFlash: true
     }))
 
-    router.get('/logout', function (req, res) {
-        req
-            .session
-            .destroy()
-        req.logout()
-        res.redirect('/')
-    })
 
     router
         .route('/forgot-login')
@@ -110,5 +103,7 @@ module.exports = function (router, passport) {
     router
         .route('/users/destroy/:id')
         .delete(auth.destroy)
+
+    
 
 }

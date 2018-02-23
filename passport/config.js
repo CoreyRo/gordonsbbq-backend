@@ -61,7 +61,9 @@ module.exports = function (passport, User) {
             .catch((err) => {
                 return done(err, req.flash('error', 'Something went wrong.'))
             })
+
     }))
+
 
     //serialze
     passport.serializeUser(function (user, done) {
