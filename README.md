@@ -7,6 +7,8 @@ This site is going to be a backend interface to add blog posts, pictures and oth
 
 [gordonsbbq-backend.herokuapp.com](https://gordonsbbq-backend.herokuapp.com/ 'https://gordonsbbq-backend.herokuapp.com/')
 backend testing remote logins
+ - email me at coreyrodems@gmail.com for the test login credentials
+
 ## Using
 - Node
 - Express
